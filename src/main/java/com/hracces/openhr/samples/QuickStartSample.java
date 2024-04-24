@@ -1,6 +1,7 @@
 package com.hracces.openhr.samples;
 
 
+
 import com.hracces.openhr.OpenHrApplication;
 import com.hraccess.openhr.*;
 import com.hraccess.openhr.beans.HRDataSourceParameters;
@@ -12,9 +13,9 @@ public class QuickStartSample {
 
 
     public static void main(String[] args) throws Exception {
-        HRApplication.configureLogs("C:\\Users\\DELL\\Desktop\\pfe\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\lo4j.properties");
+        HRApplication.configureLogs("C:\\Users\\DELL\\Desktop\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\log4j.properties");
         IHRSession session = HRSessionFactory.getFactory().createSession(
-                new PropertiesConfiguration("C:\\Users\\DELL\\Desktop\\pfe\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\openhr.properties"));
+                new PropertiesConfiguration("C:\\Users\\DELL\\Desktop\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\openhr.properties"));
 
 
         IHRUser user=null;
@@ -63,8 +64,6 @@ public class QuickStartSample {
         // Configuring logging system to use Log4J
         HRApplication.setLoggingSystem(HRLoggingSystem.LOG4J);
         // Configuring Log4J from given configuration file
-        HRApplication.configureLogs("C:\\Users\\DELL\\Desktop\\pfe\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\log4j.properties");
-
         SpringApplication.run(OpenHrApplication.class, args);
     }
 
