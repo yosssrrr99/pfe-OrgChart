@@ -1,7 +1,5 @@
 package com.hracces.openhr.samples;
 
-
-
 import com.hracces.openhr.OpenHrApplication;
 import com.hraccess.openhr.*;
 import com.hraccess.openhr.beans.HRDataSourceParameters;
@@ -9,62 +7,51 @@ import com.hraccess.openhr.dossier.*;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.boot.SpringApplication;
 
+import java.sql.Date;
+
 public class QuickStartSample {
 
-
     public static void main(String[] args) throws Exception {
-        HRApplication.configureLogs("C:\\Users\\DELL\\Desktop\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\log4j.properties");
-        IHRSession session = HRSessionFactory.getFactory().createSession(
-                new PropertiesConfiguration("C:\\Users\\DELL\\Desktop\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\openhr.properties"));
+        // Configurer les journaux
+        HRApplication.configureLogs("G:\\pfe\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\log4j.properties");
 
+        // Initialiser la session et l'utilisateur
+        IHRSession session = null;
+        IHRUser user = null;
+        try {
+            session = HRSessionFactory.getFactory().createSession(
+                    new PropertiesConfiguration("G:\\pfe\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\openhr.properties"));
+            user = session.connectUser("TALAN2PR", "HRA2023!");
 
-        IHRUser user=null;
-
-        try{
-            user = session.connectUser("HRAUSER", "SECRET");
-
+            // Créer les paramètres de la collection de dossiers
             HRDossierCollectionParameters parameters = new HRDossierCollectionParameters();
-
             parameters.setType(HRDossierCollectionParameters.TYPE_NORMAL);
-            parameters.setProcessName("FS001");
+            parameters.setProcessName("MA001");
             parameters.setDataStructureName("ZY");
-
-
             parameters.addDataSection(new HRDataSourceParameters.DataSection("00"));
             parameters.addDataSection(new HRDataSourceParameters.DataSection("10"));
 
+            // Charger la collection de dossiers
+            HRDossierCollection dossierCollection = new HRDossierCollection(parameters, user.getMainConversation(), user.getRole("ALLHRLO(MA)"), new HRDossierFactory(HRDossierFactory.TYPE_DOSSIER));
 
-            HRDossierCollection dossierCollection = new HRDossierCollection(parameters, user.getMainConversation(), user.getRole("EMPLOYEE(123456)"), new HRDossierFactory(HRDossierFactory.TYPE_DOSSIER));
+            // Charger un dossier spécifique et obtenir la date de naissance
+            HRDossier dossier = dossierCollection.loadDossier(1000);
+            Date dateNaissance = dossier.getDataSectionByName("00").getOccur().getDate("ZY00 DATNAI");
 
-
-            HRDossier employeeDossier = dossierCollection.loadDossier(new HRKey("HRA","123456"));
-
-            HROccur birthOccurrence = employeeDossier.getDataSectionByName("10").getOccur();
-
-            birthOccurrence.setDate("DATNAI", java.sql.Date.valueOf("1970-06-18"));
-
-            employeeDossier.commit();
-
-
+            // Utiliser la date de naissance pour effectuer d'autres opérations si nécessaire
+            System.out.println("Date de naissance de l'employé : " + dateNaissance);
         } finally {
-            if ((user != null) && user.isConnected()) {
-                // Disconnecting user
+            // Déconnecter l'utilisateur et fermer la session
+            if (user != null && user.isConnected()) {
                 user.disconnect();
             }
-            if ((session != null) && session.isConnected()) {
-                // Disconnecting OpenHR session
+            if (session != null && session.isConnected()) {
                 session.disconnect();
             }
         }
+
+        // Configurer le système de journalisation
         HRApplication.setLoggingSystem(HRLoggingSystem.LOG4J);
-        // Configuring logging system to use Commons Logging
-        HRApplication.setLoggingSystem(HRLoggingSystem.COMMONS_LOGGING);
-        // Configuring logging system to use standard output
-        HRApplication.setLoggingSystem(HRLoggingSystem.STANDARD);
-        // Configuring logging system to use Log4J
-        HRApplication.setLoggingSystem(HRLoggingSystem.LOG4J);
-        // Configuring Log4J from given configuration file
         SpringApplication.run(OpenHrApplication.class, args);
     }
-
 }
