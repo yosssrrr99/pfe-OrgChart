@@ -42,6 +42,7 @@ public class TestService {
                 List<IHRDataSection> dataSections = dossierType.getDataSections();
                 for (IHRDataSection dataSection : dataSections) {
                     List<IHRItem> items = dataSection.getAllItems();
+
                     for (IHRItem item : items) {
                         // Extraire les données ici et les transformer en objets Employee
                         employees.add(new Employee(item.getName(), item.getLabel()));
