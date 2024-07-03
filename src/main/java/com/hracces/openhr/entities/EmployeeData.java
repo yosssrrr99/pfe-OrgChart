@@ -36,6 +36,14 @@ public class EmployeeData implements Serializable {
     private Date dateE;
     private Date dateS;
 
+    private String idposte;
+    private String idemploi;
+    private int nudoss;
+
+
+    private double nbHeure;
+    private String Motif;
+
 
 
 

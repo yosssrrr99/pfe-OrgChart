@@ -2,12 +2,15 @@ package com.hracces.openhr.Controllers;
 
 import com.hracces.openhr.Services.*;
 import com.hracces.openhr.dto.EmployeeAndTotalSalaryResponse;
+import com.hracces.openhr.dto.EmployeeDTO;
 import com.hracces.openhr.dto.UpdateRecRequest;
-import com.hracces.openhr.entities.Employee;
-import com.hracces.openhr.entities.EmployeeData;
-import com.hracces.openhr.entities.EmployeeRec;
-import com.hracces.openhr.entities.Organisation;
-import com.hraccess.openhr.exception.HRException;
+import com.hracces.openhr.dto.Zy3bDT0;
+import com.hracces.openhr.entities.*;
+import com.hraccess.openhr.IHRSessionUser;
+import com.hraccess.openhr.IHRUser;
+import com.hraccess.openhr.dossier.HRDossierCollectionCommitException;
+import com.hraccess.openhr.dossier.HRDossierCollectionException;
+import com.hraccess.openhr.exception.*;
 import com.hraccess.openhr.msg.HRResultExtractData;
 import org.apache.commons.configuration.ConfigurationException;
 import org.springframework.http.HttpStatus;
@@ -34,11 +37,14 @@ public class EmployeeController {
 
 
 
+
+
     public EmployeeController(EmployeeService employeeService, OpenHRService openHRService, TestService testService, LoginService loginService) {
         this.employeeService = employeeService;
         this.openHRService = openHRService;
         this.testService = testService;
         this.loginService = loginService;
+
     }
 
 
@@ -173,8 +179,14 @@ public class EmployeeController {
 
     @GetMapping("/department/{id}")
     public ResponseEntity<List<EmployeeRec>> getEmployeesByDepartment(@PathVariable("id") String idorg) {
-        List<EmployeeRec> employees = employeeService.getEmployeesByIdOrg(idorg);
+        List<EmployeeRec> employees = employeeService.getEmployeesByIdOrg(idorg,Status.Encours);
         return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/demande")
+    public ResponseEntity<List<String>> getIdMangerByStatus() {
+        List<String> idMangers = employeeService.getIdMangerByStatus(Status.Encours);
+        return ResponseEntity.ok(idMangers);
     }
 
     @DeleteMapping("/delete/{idorg}")
@@ -225,11 +237,105 @@ public Double cal(@PathVariable("id")String id ){
 public void setStatus(@PathVariable("id")String id){
         employeeService.setStatus(id);
 }
+    @PutMapping("/statusR/{id}")
+    public void setStatusR(@PathVariable("id")String id){
+        employeeService.setStatusRefuser(id);
+    }
 
 @GetMapping("/login")
 public HRResultExtractData login() throws ConfigurationException, HRException {
         return loginService.login();
     }
 
+@PutMapping("/update")
+public void Employee() throws Exception {
+         employeeService.updateEmployee();
+}
 
+    @PutMapping("/add")
+    public String addEmployee() {
+        return employeeService.addEmployee();
+    }
+    @GetMapping("/search")
+    public List<Integer> findEmployeeDossierNumbersByName() {
+        return employeeService.findEmployeeDossierNumbersByName();
+    }
+
+
+    @PutMapping("/test")
+    public String testzy() {
+        return employeeService.updateAndInsertZy();
+
+    }
+
+
+    @GetMapping("/values")
+    Map<String, Integer> retrieveAttributeIndices() throws HRException{
+        return employeeService.retrieveAttributeIndices();
+    }
+
+    @GetMapping("/value")
+   List<Integer> retrieve() throws HRException{
+        return employeeService.retrieve();
+    }
+
+    @DeleteMapping("/delete")
+    public String deletEmps(){
+        return employeeService.deleteEmptyRows();
+    }
+
+
+
+    @PostMapping("/occur/{idorg}/{numdoss}")
+    public String loadAndDisplayLastOccurrence(
+            @RequestBody Zy3bDT0 employeeDTO,
+            @PathVariable("idorg") String idorg,
+            @PathVariable("numdoss") int numdoss) throws HRDossierCollectionException, HRDossierCollectionCommitException {
+
+        return employeeService.loadAndDisplayLastOccurrence(employeeDTO, idorg, numdoss);
+    }
+    @PostMapping("/login/{username}/{password}")
+    public ResponseEntity<?> login(@PathVariable("username") String username, @PathVariable("password") String password) {
+        try {
+            // Perform login logic and return success response
+            String token  = employeeService.login(username, password);
+
+
+            return ResponseEntity.ok().body("{\"token\": \"" + token + "\"}");
+        } catch (Exception e) {
+            // Handle exceptions and return appropriate error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() throws UserConnectionException, AuthenticationException, ConfigurationException, SessionBuildException, SessionConnectionException {
+        try {
+            // Perform login logic and return success response
+            String token = employeeService.logout();
+            return ResponseEntity.ok().body("{\"token\": \"" + token + "\"}");
+        } catch (Exception e) {
+            // Handle exceptions and return appropriate error response
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"" + e.getMessage() + "\"}");
+        }
+    }
+
+    @GetMapping("/role")
+    public ResponseEntity<String> getUserRole() {
+        try {
+            String userRole = employeeService.getRole(); // Appel à un service pour récupérer le rôle de l'utilisateur
+            return ResponseEntity.ok(userRole);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération du rôle de l'utilisateur.");
+        }
+    }
+
+    @GetMapping("/emploi")
+    public List<Poste> emploi() throws HRException, ConfigurationException, ParseException{
+        return employeeService.emploi();
+    }
+
+    @GetMapping("/motif")
+    public List<String> motif() throws HRException, ConfigurationException, ParseException{
+        return employeeService.motif();
+    }
 }
