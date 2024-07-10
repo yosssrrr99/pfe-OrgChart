@@ -12,6 +12,7 @@ import com.hraccess.openhr.beans.HRDataSourceParameters;
 import com.hraccess.openhr.dossier.*;
 import com.hraccess.openhr.exception.*;
 import com.hraccess.openhr.msg.*;
+import com.hraccess.openhr.security.UserDescription;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 import org.apache.commons.configuration.ConfigurationException;
@@ -83,26 +84,36 @@ public class EmployeeService {
         session = HRSessionFactory.getFactory().createSession(
                 new PropertiesConfiguration("G:\\pfe\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\openhr.properties"));
         user = session.connectUser(username, password);
-
-
+      //  System.out.println("+++++++++"+user.getRoles().get(0).getDelegation().getName());
+      //  System.out.println("+++++++++"+user.getRoles().get(0).getTemplateLabel());
+     //  System.out.println("+++++++++"+user.getDescription().getUserDossierNudoss());
+    //    System.out.println("+++++++++"+user.getDescription());
+    //    System.out.println("+++++++++"+user.getVirtualSessionId());
+     //   user.getSQLkey();
        return "avec succes";
     }
-    public String getRole(){
+    public boolean isLoggedIn() {
 
 
+    return user.isConnected();
+ }
+    public String getRole() {
         List<IHRRole> roles = user.getRoles();
-        String r="";
 
         // Déboguer: afficher tous les rôles et leurs labels
         System.out.println("Roles for user " + user.getUserId() + ":");
         for (IHRRole role : roles) {
-
             System.out.println("Role Label: " + role.getTemplate());
-            r= role.getTemplate().toString();
         }
-        return r;
-    }
 
+        // Vérifier si la liste des rôles n'est pas vide et retourner le premier rôle
+        if (!roles.isEmpty()) {
+            return roles.get(0).getTemplate().toString();
+        }
+
+        // Retourner une valeur par défaut ou lever une exception si aucun rôle n'est trouvé
+        return ""; // ou lever une exception
+    }
     public String logout() throws UserConnectionException {
         if (user != null && user.isConnected()) {
 
@@ -722,7 +733,7 @@ public class EmployeeService {
             employeeRec.setMaxbudget(maxBudget);
             employeeRec.setDate(LocalDate.now());
             employeeRec.setTypeStatus(Status.Encours);
-            employeeRec.setIdManger("654321");
+            employeeRec.setIdManger(user.getUserId());
             employeeRecRepositories.save(employeeRec);
         }
 
@@ -741,6 +752,10 @@ public class EmployeeService {
 
     public List<String> getIdMangerByStatus(Status status) {
         return employeeRecRepositories.findMangerTypeStatus(status);
+    }
+
+    public int countgetIdMangerByStatus(Status status) {
+        return employeeRecRepositories.countfindMangerTypeStatus(status);
     }
 
     public void updateEmployeeRecByIdorg(String idorg, List<EmployeeRec> updatedEmployeeRec, double minBudget, double maxBudget) {
@@ -884,7 +899,7 @@ public class EmployeeService {
 
 
     public double calculateBudgetPourcentageDepense(double budgetGlobal, double budgetDepense) {
-        return ((budgetGlobal - budgetDepense) / budgetGlobal) * 100;
+        return (budgetDepense / budgetGlobal) * 100;
     }
 
     public double calculateBudgetPourcentageRestant(double budgetGlobal, double budgetRestant) {
@@ -1634,6 +1649,61 @@ public class EmployeeService {
         return emploiList;
 
     }
+
+
+
+    public List<String> loginManager() throws HRException, ConfigurationException, ParseException {
+
+        HRDossierCollectionParameters parameters = new HRDossierCollectionParameters();
+        parameters.setType(HRDossierCollectionParameters.TYPE_NORMAL);
+        parameters.setProcessName("MA001");
+        parameters.setDataStructureName("ZY");
+
+        parameters.addDataSection(new HRDataSourceParameters.DataSection("00"));
+        parameters.addDataSection(new HRDataSourceParameters.DataSection("4I"));
+        parameters.addDataSection(new HRDataSourceParameters.DataSection("AU"));
+        parameters.addDataSection(new HRDataSourceParameters.DataSection("3B"));
+
+
+        //  HRDossierCollection dossierCollection = new HRDossierCollection(parameters, user.getMainConversation(), user.getRole("ALLHRLO(MA)"), new HRDossierFactory(HRDossierFactory.TYPE_DOSSIER));
+
+
+        IHRDictionary dictionary = session.getDictionary();
+        HRDossierCollection dossierCollection = new HRDossierCollection(parameters, user.getMainConversation(), user.getRole("ALLHRLO(MA)"), new HRDossierFactory(HRDossierFactory.TYPE_DOSSIER));
+
+        // HRDossierListIterator iterator = dossierCollection.loadDossiers("select a.MATCLE, b.DATSOR from ZY00 a,ZYES b where a.NUDOSS=b.NUDOSS");
+        //HRDossierListIterator iterator =dossierCollection.loadDossiers("select mte3ek");
+
+        IHRConversation conversation = user.getMainConversation();
+// Retrieving one of the user's roles to send the message
+        IHRRole role = user.getRole("ALLHRLO(MA)");
+
+        HRMsgExtractData request = new HRMsgExtractData();
+        request.setFirstRow(0);
+        request.setMaxRows(5);
+        //    request.setSqlStatement("SELECT a.MATCLE, b.MTSAL,a.BLOB01, b.DATEFF, b.DATFIN, a.NOMUSE, g.AMANN ,a.PRENOM,e.IDOU00, d.LBOULG FROM ZY00 a, ZYAU b,ZE01 d,ZE00 i, ZY3B e, ZY1S f, ZE40 g WHERE g.IDOU00=i.IDOU00 and i.IDOU00=e.IDOU00 and a.NUDOSS = b.NUDOSS AND a.NUDOSS = e.NUDOSS AND a.SOCDOS = 'MIT' AND a.NUDOSS = f.NUDOSS AND f.STEMPL = 'A' AND e.DTEN00 >= GETDATE() AND b.DATFIN >= GETDATE() AND d.CDLANG = 'F' AND d.NUDOSS = i.NUDOSS");
+        request.setSqlStatement("select * from zysb where socdos='MIT' ");
+        HRResultExtractData result = (HRResultExtractData) conversation.send(request, role);
+
+        List<String> emploiList = new ArrayList<>();
+        ;
+        for (Object row : result.getRows()) {
+            Object[] rowData = (Object[]) row;
+            Poste poste = new Poste();
+            poste.setIdjbo00(rowData[0].toString());
+            poste.setEmploi(rowData[1].toString());
+
+
+
+           // emploiList.add(poste);
+            // organisationRepositories.save(organisation);
+
+        }
+
+        return emploiList;
+
+    }
+
 
 
     //Notification

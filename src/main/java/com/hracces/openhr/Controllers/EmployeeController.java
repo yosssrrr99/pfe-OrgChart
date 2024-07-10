@@ -189,6 +189,13 @@ public class EmployeeController {
         return ResponseEntity.ok(idMangers);
     }
 
+
+    @GetMapping("/count")
+    public ResponseEntity<Integer> countgetIdMangerByStatus() {
+      int count= employeeService.countgetIdMangerByStatus(Status.Encours);
+        return ResponseEntity.ok(count);
+    }
+
     @DeleteMapping("/delete/{idorg}")
     public ResponseEntity<Map<String, String>> deleteEmployeeRecByIdorgAndCheckDate(@PathVariable("idorg") String idorg) {
         Map<String, String> response = new HashMap<>();
@@ -307,6 +314,10 @@ public void Employee() throws Exception {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
+    @GetMapping("/logged")
+    public boolean isLoggedIn(){
+        return employeeService.isLoggedIn();
+    }
     @PostMapping("/logout")
     public ResponseEntity<?> logout() throws UserConnectionException, AuthenticationException, ConfigurationException, SessionBuildException, SessionConnectionException {
         try {
@@ -320,14 +331,17 @@ public void Employee() throws Exception {
     }
 
     @GetMapping("/role")
-    public ResponseEntity<String> getUserRole() {
+    public ResponseEntity<Map<String, String>> getUserRole() {
         try {
             String userRole = employeeService.getRole(); // Appel à un service pour récupérer le rôle de l'utilisateur
-            return ResponseEntity.ok(userRole);
+            Map<String, String> response = new HashMap<>();
+            response.put("role", userRole);
+            return ResponseEntity.ok(response);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erreur lors de la récupération du rôle de l'utilisateur.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", "Erreur lors de la récupération du rôle de l'utilisateur."));
         }
     }
+
 
     @GetMapping("/emploi")
     public List<Poste> emploi() throws HRException, ConfigurationException, ParseException{
@@ -338,4 +352,9 @@ public void Employee() throws Exception {
     public List<String> motif() throws HRException, ConfigurationException, ParseException{
         return employeeService.motif();
     }
+    @GetMapping("/idManager")
+    public List<String> loginManager() throws HRException, ConfigurationException, ParseException{
+        return employeeService.loginManager();
+    }
+
 }

@@ -22,4 +22,6 @@ public interface EmployeeRecRepositories extends JpaRepository<EmployeeRec,Integ
 
     @Query("SELECT distinct e.idManger FROM EmployeeRec e WHERE e.TypeStatus = :status")
     List<String> findMangerTypeStatus( @Param("status") Status status);
+    @Query("SELECT count (distinct e.idManger) FROM EmployeeRec e WHERE e.TypeStatus = :status")
+    int countfindMangerTypeStatus( @Param("status") Status status);
 }
