@@ -1,0 +1,131 @@
+<div class="header bg-primary">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <h2 class="fw-500 secondary-font">Order #{{order.id}}</h2>
+        <app-dialog-header-controls [dialogRef]="dialogRef"></app-dialog-header-controls> 
+    </div>   
+</div> 
+<mat-dialog-content>  
+    <div class="pt-3"> 
+
+
+        <div fxLayout="row wrap" class="flex-wrapper"> 
+            <div fxFlex="100" class="px-3 mb-2">
+                <h2 class="secondary-font">Delivery Address</h2>
+            </div>
+            <div fxFlex="100" class="px-3 mb-2">
+                <div class="divider"></div>
+            </div>  
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Name:</p>
+                <b class="mb-3">{{deliveryAddress.firstName}} {{deliveryAddress.lastName}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Email:</p>
+                <b class="mb-3">{{deliveryAddress.email}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Phone:</p>
+                <b class="mb-3">{{deliveryAddress.phone}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Country:</p>
+                <b class="mb-3">{{deliveryAddress.country}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">City:</p>
+                <b class="mb-3">{{deliveryAddress.city}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Place:</p>
+                <b class="mb-3">{{deliveryAddress.place}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Zip/PostalCode:</p>
+                <b class="mb-3">{{deliveryAddress.postalCode}}</b>
+            </div>
+            <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+                <p class="text-muted mb-1">Address:</p>
+                <b class="mb-3">{{deliveryAddress.address}}</b>
+            </div> 
+
+
+            <div fxFlex="100" class="px-3 mb-2 mt-5">
+                <h2 class="secondary-font">Delivery Method</h2>
+            </div>
+            <div fxFlex="100" class="px-3">
+                <div class="divider"></div>
+            </div> 
+            <div fxFlex="100" class="px-3 mb-4">
+                <p class="py-1">Standard Delivery <b class="text-muted"> $7.99 / Delivery in 5 to 7 business Days</b></p>
+            </div> 
+
+            <div fxFlex="100" class="px-3 mb-2">
+                <h2 class="secondary-font">Payment Method</h2>
+            </div>
+            <div fxFlex="100" class="px-3">
+                <div class="divider"></div>
+            </div> 
+            <div fxFlex="100" class="px-3 mb-5">
+                <p class="py-1"><b class="text-muted">Card number:</b><span class="mx-1">XXX-XXX-XXX-7224</span></p>
+            </div> 
+            
+            <div fxFlex="100" class="px-3 mb-2">
+                <h2 class="secondary-font">Shopping Cart</h2>
+            </div>
+            <div fxFlex="100" class="px-3 mb-5">
+                <div class="divider"></div>
+                <div class="mat-mdc-table theme-table review-order-table">
+                    <div class="mat-mdc-header-row">
+                        <div class="mat-mdc-header-cell image">Image</div>
+                        <div class="mat-mdc-header-cell">Name</div>
+                        <div class="mat-mdc-header-cell price">Unit Price</div>      
+                        <div class="mat-mdc-header-cell quantity">Quantity</div>
+                        <div class="mat-mdc-header-cell total">Total</div> 
+                    </div> 
+                    <div *ngFor="let item of order.items" class="mat-mdc-row">
+                        <div class="mat-mdc-cell image"><img [src]="item.image.small" alt="item"></div>
+                        <div class="mat-mdc-cell"><a [routerLink]="['/menu', item.id]" class="menu-item-name">{{item.name}}</a></div>
+                        <div class="mat-mdc-cell price">  
+                            <span *ngIf="!item.discount" class="primary-color py-3"> 
+                                {{item.price | currency : 'USD' : 'symbol' : '1.2-2'}}  
+                            </span> 
+                            <span *ngIf="item.discount" class="primary-color py-3">  
+                                {{ (item.price - (item.price * (item.discount / 100))) | currency : 'USD' : 'symbol' : '1.2-2'}}
+                            </span>  
+                        </div>      
+                        <div class="mat-mdc-cell quantity">{{item.cartCount}}</div>
+                        <div class="mat-mdc-cell total">
+                            <span *ngIf="!item.discount" class="primary-color py-3"> 
+                                {{item.price*item.cartCount | currency : 'USD' : 'symbol' : '1.2-2'}}  
+                            </span> 
+                            <span *ngIf="item.discount" class="primary-color py-3">   
+                                {{ (item.price - (item.price * (item.discount / 100)))*item.cartCount | currency : 'USD' : 'symbol' : '1.2-2'}}
+                            </span>  
+                        </div> 
+                    </div> 
+                    <div class="mat-mdc-row">
+                        <div class="mat-mdc-cell image"></div>
+                        <div class="mat-mdc-cell"></div>
+                        <div class="mat-mdc-cell price"></div>
+                        <div class="mat-mdc-cell quantity text-right">
+                        <div fxLayout="column" fxLayoutAlign="center end" class="grand-total px-2">
+                            <span>SubTotal:</span>
+                            <span class="text-muted">Discount:</span>
+                            <span>Grand total:</span>
+                        </div>        
+                        </div>
+                        <div class="mat-mdc-cell total">
+                            <div fxLayout="column" fxLayoutAlign="center start" class="grand-total">
+                                <span>{{ order.amount | currency : 'USD' : 'symbol' : '1.2-2'}}</span>
+                                <span class="text-muted">15%</span>
+                                <span class="primary-color">{{ (order.amount - (order.amount*0.15)) | currency : 'USD' : 'symbol' : '1.2-2'}}</span>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div> 
+            
+        </div>   
+
+    </div>  
+</mat-dialog-content> 

@@ -1,0 +1,1003 @@
+{
+  "expanded": true,
+  "type": "person",
+  "styleClass": "myClass",
+  "data": {
+    "image": "https://media.licdn.com/dms/image/C5603AQHhnU4ekdFJqg/profile-displayphoto-shrink_800_800/0/1638809032175?e=2147483647&v=beta&t=XoSspaUkKz3sJU4h9ax1PMWbJR5ZCKRt1ks6xRCz3nk",
+    "name": "Amy Winsler",
+    "title": "CEO",
+    "email": "amyelsner@gmail.com",
+    "tel": "82461963"
+  },
+  "children": [
+    {
+      "expanded": false,
+      "type": "person",
+      "styleClass": "myClass",
+      "data": {
+        "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+        "name": "John Davis",
+        "title": "Head",
+        "email": "John Davis@example.com",
+        "tel": "74730976"
+      },
+      "children": [
+        {
+          "expanded": false,
+          "type": "person",
+          "styleClass": "myClass",
+          "data": {
+            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+            "name": "Alexa Miller",
+            "title": "CFO",
+            "email": "alexa@yahoo.com",
+            "tel": "31641282",
+            "dep":"Finance"
+          },
+          "children": []
+        },
+        {
+          "expanded": false,
+          "type": "person",
+          "styleClass": "myClass",
+          "data": {
+            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+            "name": "Alexander Taylor",
+            "title": "CTO",
+            "dep": "Information Technology",
+            "email": "tayloralex@example.com",
+            "tel": "14585694"
+          },
+          "children": [
+            {
+              "expanded": false,
+              "type": "person",
+              "styleClass": "myClass",
+              "data": {
+                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                "name": "Olivia Johnson",
+                "title": "Network Engineer",
+                "dep": "Information Technology",
+                "email": "uMNgcQrGfS@yahoo.com",
+                "tel": "12688824"
+              },
+              "children": []
+            },
+            {
+              "expanded": false,
+              "type": "person",
+              "styleClass": "myClass",
+              "data": {
+                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                "name": "James Davis",
+                "title": "Software Engineer",
+                "email": "lVBJaWCRaz@test.com",
+                "tel": "86324521"
+              },
+              "children": [
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                    "name": "Emma Jones",
+                    "title": "Software Engineer",
+                    "email": "eNfCegDjYx@yahoo.com",
+                    "tel": "99305459"
+                  },
+                  "children": [
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                        "name": "Isabella Davis",
+                        "title": "Software Engineer",
+                        "email": "cukEzgDBeZ@example.com",
+                        "tel": "24306922"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                            "name": "Alexander Smith",
+                            "title": "Financial Analyst",
+                            "email": "rdZsszmfeD@hotmail.com",
+                            "tel": "60004075"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "expanded": false,
+              "type": "person",
+              "styleClass": "myClass",
+              "data": {
+                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                "name": "Alexander Brown",
+                "title": "Product Manager",
+                "email": "hXPFNFttyH@gmail.com",
+                "tel": "45935542"
+              },
+              "children": [
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                    "name": "Michael Jones",
+                    "title": "HR Manager",
+                    "email": "ToDUkMIWJh@company.com",
+                    "tel": "03351701"
+                  },
+                  "children": [
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                        "name": "Isabella Williams",
+                        "title": "Sales Manager",
+                        "email": "CAukPmQIeL@company.com",
+                        "tel": "58509461"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                            "name": "William Johnson",
+                            "title": "COO",
+                            "email": "AHVBXdvCbT@yahoo.com",
+                            "tel": "24289196"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                                "name": "Ava Williams",
+                                "title": "Product Manager",
+                                "email": "MUncGtfFDJ@gmail.com",
+                                "tel": "18583328"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                    "name": "Emma Williams",
+                    "title": "CTO",
+                    "email": "wWXtBVGcnM@test.com",
+                    "tel": "62113752"
+                  },
+                  "children": [
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                        "name": "Alexander Taylor",
+                        "title": "Marketing Director",
+                        "email": "XVRqLYdNsH@gmail.com",
+                        "tel": "26508214"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                            "name": "Alexander Moore",
+                            "title": "CFO",
+                            "email": "mEwumFJwIS@yahoo.com",
+                            "tel": "27186950"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                                "name": "Emma Davis",
+                                "title": "Financial Analyst",
+                                "email": "CavOSsitXI@example.com",
+                                "tel": "71147484"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                            "name": "Isabella Williams",
+                            "title": "Marketing Director",
+                            "email": "WjEuZWxPvW@gmail.com",
+                            "tel": "92180642"
+                          },
+                          "children": []
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                            "name": "William Davis",
+                            "title": "COO",
+                            "email": "VGKgMvQNTF@company.com",
+                            "tel": "12482004"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                                "name": "Isabella Smith",
+                                "title": "COO",
+                                "email": "WGJbjKEwAH@example.com",
+                                "tel": "57573147"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                                "name": "John Moore",
+                                "title": "Product Manager",
+                                "email": "yDjRWxbZuO@yahoo.com",
+                                "tel": "96459728"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                        "name": "Emma Davis",
+                        "title": "Financial Analyst",
+                        "email": "hrpynwXHjQ@company.com",
+                        "tel": "62178739"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                            "name": "Sophia Williams",
+                            "title": "Product Manager",
+                            "email": "LaJgpSkIvE@test.com",
+                            "tel": "04195224"
+                          },
+                          "children": []
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                            "name": "Ava Moore",
+                            "title": "Marketing Director",
+                            "email": "icHxZaQrYT@example.com",
+                            "tel": "75373740"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                                "name": "Emma Miller",
+                                "title": "CTO",
+                                "email": "PgKKlzuIRb@gmail.com",
+                                "tel": "37797501"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                    "name": "John Williams",
+                    "title": "Product Manager",
+                    "email": "lTuHTqRvGl@gmail.com",
+                    "tel": "38905553"
+                  },
+                  "children": []
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "expanded": false,
+          "type": "person",
+          "styleClass": "myClass",
+          "data": {
+            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+            "name": "Alex Will",
+            "title": "Sales Manager",
+            "email": "YtYNMcnmKB@company.com",
+            "tel": "91402574"
+          },
+          "children": [
+            {
+              "expanded": false,
+              "type": "person",
+              "styleClass": "myClass",
+              "data": {
+                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                "name": "Isabella Davis",
+                "title": "Product Manager",
+                "email": "XUHVSpSvgh@yahoo.com",
+                "tel": "01479642"
+              },
+              "children": [
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                    "name": "Sophia Williams",
+                    "title": "Financial Analyst",
+                    "email": "kxRPnyJsTl@yahoo.com",
+                    "tel": "81521254"
+                  },
+                  "children": [
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                        "name": "James Miller",
+                        "title": "Product Manager",
+                        "email": "nWWZPbOAxo@example.com",
+                        "tel": "10816917"
+                      },
+                      "children": []
+                    },
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                        "name": "Ava Jones",
+                        "title": "Sales Manager",
+                        "email": "ZSIRxBCCGq@test.com",
+                        "tel": "28453220"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                            "name": "Ava Johnson",
+                            "title": "Marketing Director",
+                            "email": "rXEPDDfPzR@yahoo.com",
+                            "tel": "61471200"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                                "name": "Michael Brown",
+                                "title": "Product Manager",
+                                "email": "zYSvFTUEgw@test.com",
+                                "tel": "31126658"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                                "name": "Ava Johnson",
+                                "title": "CEO",
+                                "email": "StdIzNJpSj@test.com",
+                                "tel": "63530829"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                            "name": "John Jones",
+                            "title": "CFO",
+                            "email": "dNLDLoiTSM@yahoo.com",
+                            "tel": "00108746"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                    "name": "Michael Wilson",
+                    "title": "COO",
+                    "email": "CcckHNmRjp@gmail.com",
+                    "tel": "51104709"
+                  },
+                  "children": []
+                }
+              ]
+            },
+            {
+              "expanded": false,
+              "type": "person",
+              "styleClass": "myClass",
+              "data": {
+                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                "name": "Michael Moore",
+                "title": "CTO",
+                "email": "IzXYWnGfGC@test.com",
+                "tel": "87684450"
+              },
+              "children": [
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                    "name": "Ava Miller",
+                    "title": "Sales Manager",
+                    "email": "eQUaFCDrdZ@gmail.com",
+                    "tel": "72899584"
+                  },
+                  "children": [
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                        "name": "Alexander Brown",
+                        "title": "COO",
+                        "email": "sUDmtBwihe@company.com",
+                        "tel": "84107001"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                            "name": "John Williams",
+                            "title": "Marketing Director",
+                            "email": "kMRsTZfluu@gmail.com",
+                            "tel": "47064825"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                                "name": "James Brown",
+                                "title": "CEO",
+                                "email": "eHwqSZSBZF@example.com",
+                                "tel": "95218114"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                                "name": "James Moore",
+                                "title": "CFO",
+                                "email": "GADeDLSwPu@yahoo.com",
+                                "tel": "69038095"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                                "name": "Alexander Davis",
+                                "title": "COO",
+                                "email": "JOhRBLNkGx@yahoo.com",
+                                "tel": "76289164"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                            "name": "Sophia Davis",
+                            "title": "Marketing Director",
+                            "email": "PPjpSIFsQe@company.com",
+                            "tel": "75896663"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                                "name": "Alexander Smith",
+                                "title": "Marketing Director",
+                                "email": "JDIbGhNsxE@company.com",
+                                "tel": "53675711"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                        "name": "William Jones",
+                        "title": "Financial Analyst",
+                        "email": "BjdnMJALcU@yahoo.com",
+                        "tel": "50186949"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                            "name": "Emma Wilson",
+                            "title": "Software Engineer",
+                            "email": "dIvPTpYthd@gmail.com",
+                            "tel": "62901549"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                                "name": "John Moore",
+                                "title": "CEO",
+                                "email": "YAkliCGnBU@hotmail.com",
+                                "tel": "37484285"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                                "name": "Alexander Taylor",
+                                "title": "Software Engineer",
+                                "email": "bkilkxlsiT@gmail.com",
+                                "tel": "83705011"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                                "name": "Olivia Taylor",
+                                "title": "Software Engineer",
+                                "email": "HgMnwoKlek@company.com",
+                                "tel": "04639933"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                            "name": "James Moore",
+                            "title": "CEO",
+                            "email": "UEtgxHEqLb@hotmail.com",
+                            "tel": "46365427"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                                "name": "Michael Johnson",
+                                "title": "Product Manager",
+                                "email": "IPLZAsmNdZ@hotmail.com",
+                                "tel": "27044294"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                            "name": "Ava Moore",
+                            "title": "CTO",
+                            "email": "DSffzxeXDJ@gmail.com",
+                            "tel": "59855903"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                                "name": "Ava Moore",
+                                "title": "Sales Manager",
+                                "email": "dyfmqzMPiH@gmail.com",
+                                "tel": "14229049"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                                "name": "John Davis",
+                                "title": "Financial Analyst",
+                                "email": "lwUMLcTQnU@yahoo.com",
+                                "tel": "72980929"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                        "name": "Michael Jones",
+                        "title": "CEO",
+                        "email": "cNanljamAf@example.com",
+                        "tel": "38264583"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                            "name": "James Taylor",
+                            "title": "COO",
+                            "email": "jUtlAUNSuV@example.com",
+                            "tel": "83033700"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                                "name": "William Johnson",
+                                "title": "Sales Manager",
+                                "email": "lONsWZwZVD@gmail.com",
+                                "tel": "60742686"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                                "name": "Olivia Davis",
+                                "title": "Marketing Director",
+                                "email": "INgcrRnZwl@test.com",
+                                "tel": "80477749"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                            "name": "Ava Jones",
+                            "title": "CFO",
+                            "email": "vLcvRgqmBn@company.com",
+                            "tel": "44705584"
+                          },
+                          "children": []
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "expanded": false,
+                  "type": "person",
+                  "styleClass": "myClass",
+                  "data": {
+                    "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                    "name": "James Jones",
+                    "title": "Product Manager",
+                    "email": "yNWfdVsTtV@gmail.com",
+                    "tel": "21456721"
+                  },
+                  "children": [
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                        "name": "Michael Davis",
+                        "title": "COO",
+                        "email": "ovRWGvGlJo@example.com",
+                        "tel": "52543523"
+                      },
+                      "children": []
+                    },
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/asiyajavayant.png",
+                        "name": "Emma Moore",
+                        "title": "Marketing Director",
+                        "email": "NdQPcCwvlW@gmail.com",
+                        "tel": "00848349"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                            "name": "William Taylor",
+                            "title": "COO",
+                            "email": "adEaDzjohL@yahoo.com",
+                            "tel": "84962292"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                                "name": "Sophia Wilson",
+                                "title": "Product Manager",
+                                "email": "QCdQDYcjvq@example.com",
+                                "tel": "90110150"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                                "name": "William Taylor",
+                                "title": "Sales Manager",
+                                "email": "MYldgWpjPh@company.com",
+                                "tel": "08019476"
+                              },
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/elwinsharvill.png",
+                            "name": "Alexander Jones",
+                            "title": "Financial Analyst",
+                            "email": "ApCGUDuMlf@test.com",
+                            "tel": "14060844"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                                "name": "Emma Moore",
+                                "title": "Sales Manager",
+                                "email": "ZWMzMrtZEn@example.com",
+                                "tel": "72716438"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/annafali.png",
+                                "name": "Alexander Miller",
+                                "title": "Software Engineer",
+                                "email": "TfqPyboOVZ@company.com",
+                                "tel": "43960871"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "expanded": false,
+                      "type": "person",
+                      "styleClass": "myClass",
+                      "data": {
+                        "image": "https://th.bing.com/th/id/OIP.V4R8pbjrT-HABV5cME_pxAHaGK?rs=1&pid=ImgDetMain",
+                        "name": "Olivia Jones",
+                        "title": "HR Manager",
+                        "email": "nhdsgsFaJG@company.com",
+                        "tel": "17705992"
+                      },
+                      "children": [
+                        {
+                          "expanded": false,
+                          "type": "person",
+                          "styleClass": "myClass",
+                          "data": {
+                            "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                            "name": "Alexander Wilson",
+                            "title": "CEO",
+                            "email": "jvsNdRaMGG@gmail.com",
+                            "tel": "90123470"
+                          },
+                          "children": [
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/xuxuefeng.png",
+                                "name": "William Moore",
+                                "title": "CTO",
+                                "email": "qKctrhBVfR@hotmail.com",
+                                "tel": "07329285"
+                              },
+                              "children": []
+                            },
+                            {
+                              "expanded": false,
+                              "type": "person",
+                              "styleClass": "myClass",
+                              "data": {
+                                "image": "https://primefaces.org/cdn/primeng/images/demo/avatar/stephenshaw.png",
+                                "name": "Ava Jones",
+                                "title": "CEO",
+                                "email": "YUeDChRIWH@yahoo.com",
+                                "tel": "83121152"
+                              },
+                              "children": []
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

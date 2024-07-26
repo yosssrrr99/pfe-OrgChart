@@ -1,0 +1,80 @@
+<div fxLayoutAlign="center center"><h1 class="secondary-font p-2 text-center">Simulation Budgétaire de recrutement</h1></div>
+
+<div class="px-3">
+  <div class="theme-container">
+    <mat-card class="main-content-header mb-5">
+      <div class="p-3">
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <mat-form-field appearance="outline" class="manager-select-field">
+            <mat-label>ID Manager</mat-label>
+            <mat-select (selectionChange)="onManagerChange($event.value)" [(ngModel)]="selectedManagerId" >
+              <mat-option *ngFor="let manager of managers" [value]="manager">
+                {{ manager }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-around">
+          <div fxFlex="100" fxFlex.gt-xs="33.3">
+            <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
+              <mat-icon color="primary" class="mat-icon-lg">business</mat-icon>
+              <h3 class="primary-color py-1">NOM DU DEPARTEMENT :</h3>
+              <span>{{ organizationName }}</span>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+              <h3 class="primary-color py-1">BUDGET GLOBAL :</h3>
+            
+                <span class="info-value">
+            {{ budgetGlobal1 }}
+           </span>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2"
+          [ngClass]="{'negative': gab1 < 0}">
+       <div fxLayout="column" fxLayoutAlign="center center">
+         <mat-icon color="primary" class="mat-icon-lg" [ngClass]="{'red-icon': gab1 < 0}">monetization_on</mat-icon>
+         <h3 class="primary-color py-1" [ngClass]="{'red-text': gab1 < 0}">Budget Restant:</h3>
+         <span class="info-value" >
+{{ gab1 }}
+</span>
+</div>
+          </div>   
+        </div>  
+      </div>
+    </mat-card>  
+  </div> 
+</div>
+
+
+<div class="container" cdkDropListGroup>
+  <main class="table" id="customers_table">
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre de collaborateurs </th>
+            <th>Classification</th>
+            <th>date</th>
+            <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employee">
+            <td>{{ emp.number }}</td>
+            <td>{{ emp.classification }}</td>
+            <td>{{ emp.date }}</td>
+            <td>{{ emp.typeStatus }}</td>
+         
+          </tr>
+        </tbody>
+      </table>
+      <div fxLayout="row" fxLayoutAlign="center" style="margin-top: 30px;">
+        <button mat-raised-button class="center-button" color="primary" style="margin-right: 10px;" (click)="updateStatus()">Approuver</button>
+        <button mat-raised-button class="center-button" color="warn" style="margin-left: 10px;" (click)="updateStatusR()">Refuser</button>
+      </div>
+    </section>
+  </main>
+</div>

@@ -1,0 +1,32 @@
+.badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+}
+.large-icon {
+  font-size: 25px; /* Ajustez la taille de police selon vos besoins */
+}
+
+.unread-icon {
+  color: red; /* Couleur pour les notifications non lues */
+}
+
+.read-icon {
+  color: green; /* Couleur pour les notifications lues */
+}
+
+.notification-badge {
+  background-color: red;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+  font-size: 12px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+}

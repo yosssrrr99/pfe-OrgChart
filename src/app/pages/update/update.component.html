@@ -1,0 +1,82 @@
+<div fxLayoutAlign="center center">
+  <h1 class="secondary-font p-2 text-center">Modification de l'Enveloppe</h1>
+</div>
+<div class="px-3">
+  <div class="theme-container">
+    <mat-card class="main-content-header mb-5">
+      <div class="p-3">
+        <div fxLayout="row wrap" fxLayoutAlign="space-around">
+          <div fxFlex="100" fxFlex.gt-xs="33.3">
+            <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
+              <mat-icon color="primary" class="mat-icon-lg">business</mat-icon>
+              <h3 class="primary-color py-1">NOM DU DEPARTEMENT :</h3>
+              <span>{{ organizationName }}</span>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+              <h3 class="primary-color py-1">BUDGET GLOBAL :</h3>
+              <mat-form-field>
+                <input class="info-value" matInput type="number" [(ngModel)]="budgetGlobal1" required>
+              </mat-form-field>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2"
+          [ngClass]="{'negative': gab1 < 0}">
+       <div fxLayout="column" fxLayoutAlign="center center">
+         <mat-icon color="primary" class="mat-icon-lg" [ngClass]="{'red-icon': gab1 < 0}">monetization_on</mat-icon>
+         <h3 class="primary-color py-1" [ngClass]="{'red-text': gab1 < 0}">Budget Restant:</h3>
+         <span class="info-value" 
+    [ngClass]="{'red-text': gab1 < 0, 'blink': isBlinking && gab1 < 0}"
+    (click)="handleClick()">
+{{ gab1 }}
+</span>
+</div>
+          </div>   
+        </div>  
+      </div>
+    </mat-card>  
+  </div> 
+</div>
+
+
+
+<div class="container" >
+
+
+
+  <main class="table" id="customers_table">
+    <section class="table__body">
+      <div *ngFor="let dynamicRow of dynamicRows; let i = index" class="dynamic-row">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Input Number {{ i + 1 }}</mat-label>
+          <input matInput type="number" [(ngModel)]="dynamicRow.number" (input)="onInputChange(i)">
+        </mat-form-field>
+        <mat-form-field style="margin-left: 15px;" appearance="outline" class="w-100">
+          <mat-label>Select class</mat-label>
+          <mat-select [(ngModel)]="dynamicRow.class" (selectionChange)="onClassChange($event.value, i)">
+            <mat-option value="junior">Junior</mat-option>
+            <mat-option value="senior">Senior</mat-option>
+            <mat-option value="confirme">Confirmé</mat-option>
+            <mat-option value="aspa">Junior Anapec</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-icon-button color="primary" matTooltip="ajouter" class="mx-2" fxShow="false" fxShow.gt-xs="true" (click)="addRow(i)">
+          <mat-icon>add</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" matTooltip="annuler" class="mx-2" fxShow="false" fxShow.gt-xs="true" (click)="removeRow(i)">
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
+    </section>
+    <div fxLayout="row" fxLayoutAlign="center center" >
+    <button mat-raised-button  color="primary"  (click)="confirm()">Modifier</button>
+    <button mat-raised-button color="warn" style="margin-left:10px ;"(click)="cancelEnvelope()">Annuler</button>
+  </div>
+  </main>
+
+
+
+</div>
+

@@ -1,0 +1,11 @@
+.custom-dialog-container {
+    width: 80vw; /* 80% of the viewport width */
+    height: 80vh; /* 80% of the viewport height */
+    max-width: none !important;
+  }
+  
+  .custom-dialog-content {
+    height: calc(80vh - 150px); /* Adjust according to the height of the title and actions */
+    overflow: auto; /* Enable scrolling if content overflows */
+  }
+  

@@ -1,0 +1,18 @@
+<button mat-icon-button matBadge="{{ pendingRequestsCount }}" matBadgeColor="warn" [matMenuTriggerFor]="notificationMenu">
+  <mat-icon>notifications</mat-icon>
+</button>
+<mat-menu #notificationMenu="matMenu" class="notification-menu">
+  <ng-container *ngIf="notifications.length > 0; else noNotifications">
+    <button mat-menu-item *ngFor="let notification of notifications" (click)="navigateToRequest(notification)">
+      <div class="notification-item">
+        <p>{{ notification }}</p>
+        <span class="text-muted">{{ notification.timestamp | date:'short' }}</span>
+      </div>
+    </button>
+  </ng-container>
+  <ng-template #noNotifications>
+    <button mat-menu-item disabled>
+      No notifications
+    </button>
+  </ng-template>
+</mat-menu>

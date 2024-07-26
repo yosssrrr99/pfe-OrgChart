@@ -1,0 +1,12 @@
+<p>notification-manager works!</p>
+<div class="notifications-container">
+    <h2>Notifications</h2>
+    <ul>
+      <li *ngFor="let notification of notifications">
+        <div [class.unread]="!notification.isRead">
+          {{ notification.message }} - {{ notification.date | date:'short' }}
+        </div>
+      </li>
+    </ul>
+  </div>
+  

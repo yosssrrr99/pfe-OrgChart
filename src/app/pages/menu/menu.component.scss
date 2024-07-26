@@ -1,0 +1,90 @@
+.container {
+    margin-bottom: 20px; 
+}
+
+.item {
+    margin-top: 30px;
+    clear: both; 
+}
+
+.custom-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    width: 350px;
+    height: 400px;
+    margin-top: 20px; /* Espacement depuis le haut */
+    padding: 30px;
+    margin-bottom: 20px; /* Espacement depuis le bas */
+    margin-left: 450px; /* Centrage horizontal */
+    margin-right: auto; 
+    
+
+}
+.delete-icon {
+  color: red;
+  float: right;
+}
+.ic{
+    float: left;
+}
+
+.lab{
+    margin-left: 450px;
+}
+
+
+  
+  .custom-label {
+    color: #495057; 
+    font-weight: bold; 
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  
+  .custom-input {
+    border: 1px solid #ced4da; 
+    border-radius: 5px; 
+    margin-left: 10px; /* Largeur à 100% de son conteneur */
+  padding: 10px; /* Ajouter un peu de marge intérieure pour l'espacement */
+  }
+  
+  .custom-btn {
+    background-color: #007bff; /* Couleur de fond */
+    color: #ffffff; /* Couleur du texte */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    transition: background-color 0.3s ease; 
+    padding: 10px 20px; /* Espacement interne pour le contenu */
+    font-size: 16px;
+  }
+  
+  .custom-btn:hover {
+    background-color: #0056b3; /* Couleur de fond au survol */
+  }
+
+ 
+  
+
+
+  .custom-file-upload {
+    cursor: pointer;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #7f8387;
+    color: #fff;
+    border: none;
+    margin-left: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-file-upload:hover {
+    background-color: #495057;
+  }
+  
+  .custom-file-upload i {
+    margin-right: 5px;
+  }
+  

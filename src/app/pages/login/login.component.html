@@ -1,0 +1,43 @@
+<div class="px-3 py-5">
+    <div class="theme-container"> 
+        <mat-card class="p-0 o-hidden container">
+            <div fxLayout="row wrap"> 
+               
+                <div fxFlex="100" fxFlex.gt-sm="50" class="py-3" ngClass.gt-sm="px-5" ngClass.sm="px-3" ngClass.xs="px-3 " class="login-form">  
+                    <div fxLayout="column" fxLayoutAlign="center center" class="text-center">  
+                        <h1 class="secondary-font">Se connecter </h1>  
+   
+                    </div>
+                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+                        <mat-form-field appearance="outline" class="w-100 mt-2">
+                            <mat-icon matPrefix class="mr-1 text-muted">person</mat-icon>
+                            <mat-label>Nom d'utilisateur</mat-label>
+                            <input matInput placeholder="Nom d'utilisateur" formControlName="username" [(ngModel)]="username"  required>
+                            <mat-error *ngIf="loginForm.controls.username.errors?.required">Username is required</mat-error>
+                            <mat-error *ngIf="loginForm.controls.username.hasError('minlength')">Username isn't long enough, minimum of 6 characters</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class="w-100 mt-1">
+                            <mat-icon matPrefix class="mr-1 text-muted">lock</mat-icon>
+                            <mat-label>Mot de passe</mat-label>
+                            <input matInput placeholder="Mot de passe" formControlName="password" [(ngModel)]="password" required [type]="hide ? 'password' : 'text'">
+                            <mat-error *ngIf="loginForm.controls.password.errors?.required">Password is required</mat-error>
+                            <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+                            <button mat-icon-button matSuffix (click)="hide = !hide" type="button" class="text-muted">
+                                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field> 
+                        <mat-slide-toggle formControlName="rememberMe" class="my-2">Rester connecté</mat-slide-toggle>
+                        <div class="text-center mt-2"> 
+                            <button mat-raised-button color="accent" class="uppercase" type="submit">
+                                Se connecter
+                            </button>
+                        </div>     
+                      
+                         
+                    </form>
+                   
+                </div> 
+            </div> 
+        </mat-card>  
+    </div>
+</div>   

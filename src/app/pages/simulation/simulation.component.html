@@ -1,0 +1,257 @@
+<div fxLayoutAlign="center center"><h1 class="secondary-font p-2 text-center">Simulation d'affectation par unité organisationnelle</h1></div>
+<div style="display: flex;">
+  <div class="px-3">
+    <div class="theme-container">
+      <mat-card class="main-content-header mb-5 small-card">
+        <div fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Organisation</mat-label>
+            <mat-select placeholder="Select organisation" (selectionChange)="onSelect1($event, 'select1')">
+              <mat-option *ngFor="let org of organisations" [value]="org">
+                {{ org.nomorgL }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-3">
+          <div fxLayout="row wrap" fxLayoutAlign="space-around">
+          
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+                <h3 class="primary-color py-1">Budget Annuel:</h3>
+                <span class="info-value">{{ budgetAnnuel1 }}</span>
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">monetization_on</mat-icon>
+                <h3 class="primary-color py-1">Budget Global :</h3>
+                <mat-form-field appearance="outline" class="small-input-field">
+                  <input matInput type="number" [(ngModel)]="budgetGlobal1" required>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2"
+            [ngClass]="{'negative': gab1 < 0}">
+         <div fxLayout="column" fxLayoutAlign="center center">
+           <mat-icon color="primary" class="mat-icon-lg" [ngClass]="{'red-icon': gab1 < 0}">attach_money</mat-icon>
+           <h3 class="primary-color py-1" [ngClass]="{'red-text': gab1 < 0}">Budget Restant:</h3>
+           <span class="info-value" 
+      [ngClass]="{'red-text': gab1 < 0, 'blink': isBlinking && gab1 < 0}"
+      (click)="handleClick()">
+  {{ gab1 }}
+</span>
+         </div>
+       </div>
+            <div fxFlex="48" class="info-box mt-2 percentage-spent">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
+                <h3 class="primary-color py-1">Pourcentage Dépensé :</h3>
+                <span class="info-value">{{ percentageChangeTab1 | number:'1.0-2' }}%</span></div></div>
+                <div fxFlex="48" class="info-box mt-2 percentage-remaining">
+                  <div fxLayout="column" fxLayoutAlign="center center">
+                    <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
+                    <h3 class="primary-color py-1">Pourcentage Restant :</h3>
+                    <span class="info-value">{{ percentageChangeResTab1 | number:'1.0-2' }}%</span></div>
+              </div>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="px-3">
+    <div class="theme-container">
+      <mat-card class="main-content-header mb-5 small-card">
+        <div fxFlex="100" fxFlex.gt-sm="25" class="px-3">
+          <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Select Organisation</mat-label>
+            <mat-select placeholder="Select organisation" (selectionChange)="onSelect2($event, 'select2')">
+              <mat-option *ngFor="let org of organisations" [value]="org">
+                {{ org.nomorgL}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="p-3">
+          <div fxLayout="row wrap" fxLayoutAlign="space-around">
+
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+                <h3 class="primary-color py-1">Budget Annuel:</h3>
+                <span class="info-value">{{ budgetAnnuel2 }}</span>
+              </div>
+            </div>
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">monetization_on</mat-icon>
+                <h3 class="primary-color py-1">Budget Global :</h3>
+                <mat-form-field appearance="outline" class="small-input-field">
+                  <input matInput type="number" [(ngModel)]="budgetGlobal2">
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">savings</mat-icon>
+                <h3 class="primary-color py-1">Budget Restant :</h3>
+                <span class="info-value">{{gab2}}</span>
+              </div>
+              </div>
+            <div fxFlex="48" class="info-box mt-2 percentage-spent">
+              <div fxLayout="column" fxLayoutAlign="center center">
+                <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
+                <h3 class="primary-color py-1">Pourcentage Dépensé :</h3>
+                <span class="info-value">{{percentageChangeTab2}}%</span></div></div>
+                <div fxFlex="48" class="info-box mt-2 percentage-remaining">
+                  <div fxLayout="column" fxLayoutAlign="center center">
+                    <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
+                    <h3 class="primary-color py-1">Pourcentage Restant :</h3>
+                    <span class="info-value">{{ percentageChangeResTab2 | number:'1.0-2' }}%</span></div>
+              </div>
+            </div>
+          </div>
+      
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+  
+<div class="container" cdkDropListGroup>
+  <main class="table" id="customers_table_1">
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom et Prénom</th>
+            <th>Salaire</th>
+            <th>Date</th>
+            <th>Type Motif</th>
+            <th>Emploi</th>
+          </tr>
+        </thead>
+        <tbody cdkDropList
+                id="tab1"
+                [cdkDropListConnectedTo]="['tab2']"
+                (cdkDropListDropped)="onDrop($event)"
+                [cdkDropListData]="tab1Data">
+                
+  <ng-container *ngIf="tab1Data.length > 0; else emptyTable">
+          <tr *ngFor="let employee of tab1Data" cdkDrag>
+            <td>
+              <img [src]="getImageSrc(employee.blobData)" alt="employee image">
+              {{ employee.prenom }} {{ employee.nomuse }}
+            </td>
+            <td>{{employee.mtsal}}</td>
+          <td>  
+            <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px;" >
+              <mat-label>Select Date</mat-label>
+              <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event, employee)" [ngModel]="employee.selectedDate" [disabled]="employee.disableDateField" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            </td>
+           
+              <td>
+              
+                <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px; margin-left: 1px;" >
+                  <mat-label>Select Motif</mat-label>
+                  <mat-select [(ngModel)]="employee.selectedMotif" [disabled]="employee.disableValueField" required>
+                    <mat-option *ngFor="let m of motif" [value]="m">
+                      {{ m }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px; margin-left: 1px;">
+                <mat-label>Select Emploi</mat-label>
+                <mat-select [(ngModel)]="employee.selectedPoste">
+                  <mat-option *ngFor="let poste of postes" [value]="poste.idjbo00" required>
+                    {{ poste.emploi }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </section>
+    <button mat-raised-button class="center-button" color="primary" (click)="confirmUpdate1()">Confirm</button>
+
+  </main>
+  <ng-template #emptyTable>
+    <tr>
+      <td colspan="4" class="text-center">Le tableau est vide</td>
+    </tr>
+  </ng-template>
+  <main class="table" id="customers_table_2">
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom et Prénom</th>
+            <th>Salaire</th>
+            <th>Date</th>
+            <th>Type Motif</th>
+            <th>Emploi</th>
+          </tr>
+        </thead>
+        <tbody cdkDropList
+                id="tab2"
+                [cdkDropListConnectedTo]="['tab1']"
+                (cdkDropListDropped)="onDrop($event)"
+                [cdkDropListData]="tab2Data">
+          <ng-container *ngIf="tab2Data.length > 0; else emptyTable">
+          <tr *ngFor="let employee of tab2Data" cdkDrag>
+            <td>
+              <img [src]="getImageSrc(employee.blobData)" alt="employee image">
+              {{ employee.prenom }} {{ employee.nomuse }}
+            </td>
+            <td>{{employee.mtsal}}</td>
+            <td>  <mat-form-field appearance="outline"  style="margin-top: 5px;  width: 200px;" >
+              <mat-label>Select Date</mat-label>
+              <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event, employee)" [ngModel]="employee.selectedDate" [disabled]="employee.disableDateField" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            </td>
+            <td>
+              
+                <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px; margin-left: 1px;" >
+                  <mat-label>Select Motif</mat-label>
+                  <mat-select [(ngModel)]="employee.selectedMotif" [disabled]="employee.disableValueField" required>
+
+                      <mat-option *ngFor="let m of motif" [value]="m">
+                        {{ m }}
+                      </mat-option>
+                      </mat-select>
+                </mat-form-field>
+            </td>
+
+            <td>
+              
+              <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px; margin-left: 1px;">
+                <mat-label>Select Emploi</mat-label>
+                <mat-select [(ngModel)]="employee.selectedPoste" required>
+                  <mat-option *ngFor="let poste of postes" [value]="poste.idjbo00">
+                    {{ poste.emploi }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </td>
+          </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </section>
+    <button mat-raised-button class="center-button" color="primary"  >Confirm</button>
+
+  </main>
+</div>

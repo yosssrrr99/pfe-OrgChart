@@ -1,0 +1,68 @@
+<footer>    
+    <div class="px-3">
+        <div class="theme-container"> 
+ 
+            <div class="py-5 content border-lighter"> 
+                <div fxLayout="row wrap" fxLayoutAlign="space-between"> 
+                    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="45"> 
+                        <a class="logo" routerLink="/">
+                            <img src="assets/images/others/logoTal.png" alt="">
+                          </a>
+                        <p class="mt-4 mb-3 desc">Talan has been a leading consultancy in innovation and technology-driven transformation. Serving both businesses and governmental bodies, Talan advises, supports, and implements projects for transformation and innovation, both domestically in France and on a global scale.</p>
+                        <p fxLayout="row" fxLayoutAlign="start center" class="mt-2">
+                            <mat-icon color="primary">location_on</mat-icon>
+                            <span class="mx-2">Charguia 1, Tunis 2035</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center" class="mt-1">
+                            <mat-icon color="primary">call</mat-icon>
+                            <span class="mx-2">(+216) 70 015 010</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center" class="mt-1">
+                            <mat-icon color="primary">mail_outline</mat-icon>
+                            <span class="mx-2">Talan@Tunisie.com</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center" class="mt-1">
+                            <mat-icon color="primary">schedule</mat-icon>
+                            <span class="mx-2">Mon - FRI / 9:00AM - 8:00PM</span>
+                        </p>
+                        <app-social-icons [iconSize]="'lg'" fxLayout="row" fxLayoutAlign="start center" class="desc"></app-social-icons>                    
+                    </div>
+
+                    <div fxFlex="100" fxFlex.gt-sm="30" fxFlex.sm="45" ngClass.xs="pt-5"> 
+                        <h1 class="secondary-font">Feedback</h1>
+                        <p class="desc">We want your feedback about everything</p>
+                        <form [formGroup]="feedbackForm" (ngSubmit)="onFeedbackFormSubmit(feedbackForm.value)" class="custom-form pt-2">                            
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>E-mail</mat-label> 
+                                <input matInput autocomplete="off" formControlName="email">
+                                <mat-error *ngIf="feedbackForm.controls.email.errors?.required">Email is required</mat-error>
+                                <mat-error *ngIf="feedbackForm.controls.email.hasError('invalidEmail')">Invalid email address</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Message for us</mat-label> 
+                                <textarea matInput formControlName="message" rows="6"></textarea> 
+                                <mat-error *ngIf="feedbackForm.controls.message.errors?.required">Message is required</mat-error>
+                            </mat-form-field>
+                            <div class="w-100 text-center">
+                                <button mat-flat-button color="primary" class="uppercase" type="submit">Submit</button> 
+                            </div> 
+                        </form> 
+                    </div>
+ 
+                    <div fxFlex="100" fxFlex.gt-sm="30" ngClass.lt-md="pt-5"> 
+                        <h1 class="secondary-font mb-3">Our location</h1>  
+                        <google-map [center]="center" [zoom]="zoom" [options]="mapOptions" height="308px" width="100%">
+                            <map-marker *ngFor="let markerPosition of markerPositions"
+                                        [position]="markerPosition"
+                                        [options]="markerOptions"></map-marker>
+                        </google-map>
+                    </div>
+                </div>  
+            </div> 
+            <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="copyright py-2">
+                <p ngClass.xs="mt-1">Copyright © 2024 All Rights Reserved</p>  
+                <p>Designed & Developed by <a mat-button href="http://talan.com/" color="primary" target="_blank">Talan Tunisie</a></p>
+            </div> 
+        </div>
+    </div>      
+</footer>

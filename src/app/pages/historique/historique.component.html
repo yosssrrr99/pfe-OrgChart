@@ -1,0 +1,84 @@
+<div  fxLayoutAlign="center center"><h1 class="secondary-font p-2 text-center">Historique de l'Enveloppe</h1></div>
+<div class="px-3"> 
+  <div class="theme-container">
+    <mat-card class="main-content-header mb-5"> 
+      <div class="p-3"> 
+        <div fxLayout="row wrap" fxLayoutAlign="space-around">
+          <div fxFlex="100" fxFlex.gt-xs="33.3">
+            <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
+              <mat-icon color="primary" class="mat-icon-lg">business </mat-icon>
+              <h3 class="primary-color py-1">NOM DU DEPARTEMENT : </h3>
+              <span>{{organizationName}}</span>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+              <h3 class="primary-color py-1">Budget Global</h3>
+              <span>{{budgetGlobal1}}</span>
+            </div>
+          </div>
+          <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">monetization_on</mat-icon>
+              <h3 class="primary-color py-1">GAB :</h3>
+              <span>{{gab1}}</span>
+            </div>
+          </div>   
+        </div>  
+      </div>
+    </mat-card>  
+  </div> 
+</div>
+
+
+
+
+
+
+
+<div class="container" cdkDropListGroup>
+<main class="table" id="customers_table">
+    
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre de collaborateurs </th>
+            <th>Classificationpan</th>
+            <th>date</th>
+            <th>status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let emp of employee">
+           
+            <td>{{ emp.number }}</td>
+            <td>{{ emp.classification }}</td>
+            <td>{{ emp.date }}</td>
+            <td [ngClass]="{
+              'status-encours': emp.typeStatus === 'Encours',
+              'status-approuver': emp.typeStatus === 'Approuver',
+              'status-refuser': emp.typeStatus === 'Refuser'
+            }">
+              {{ emp.typeStatus }}
+            </td>
+            <td>
+              
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+
+      <div fxLayout="row" fxLayoutAlign="center" style="margin-top: 30px;">
+        <button mat-raised-button class="center-button" color="primary" (click)="updateEnvelope()" >Modifier</button>
+      </div>
+     
+        
+    </section>
+    
+  </main>
+
+
+
