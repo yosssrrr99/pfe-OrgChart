@@ -19,24 +19,22 @@
                 <div fxLayout="row wrap" class="all-menu-items-wrapper mt-0">
                    <div class="container">
     <div class="p-2 o-hidden">
-        <h1 class="secondary-font text-center lab">Add Document</h1>
+        <h1 class="secondary-font text-center lab">Ajouter Document</h1>
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card custom-card">
                     <div class="card-body">
                         <form>
+                          
                             <div class="mb-3">
-                                <label for="userName" class="form-label custom-label">User</label>
+                                <label for="category" class="form-label custom-label">Catégorie</label>
                                 <br/>
-                                <input type="text" class="form-control custom-input" id="userName" [(ngModel)]="userName" name="userName">
-                            </div>
+                                <select class="form-control custom-input" id="category" [(ngModel)]="category" name="category">
+                                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                                </select>
+                              </div>                              
                             <div class="mb-3">
-                                <label for="category" class="form-label custom-label">Category</label>
-                                <br/>
-                                <input type="text" class="form-control custom-input" id="category" [(ngModel)]="category" name="category">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fileInput" class="form-label custom-label">Select File</label>
+
                                 <br/>
                                 <label for="file-upload" class="custom-file-upload">
                                     <i class="fas fa-cloud-upload-alt"></i> 
@@ -45,7 +43,7 @@
                                 </label>
                                 <input type="file" class="form-control custom-input" id="file-upload" style="display:none;"  (change)="onFileSelected($event)" multiple>
                             </div>
-                            <button type="button" class="btn custom-btn w-100 my-2" (click)="save()" >Save</button>
+                            <button type="button" class="btn custom-btn w-100 my-2" (click)="save()" >Enregistrer</button>
                         </form>
                     </div>
                 </div>
@@ -53,12 +51,22 @@
         </div>
     </div>
 </div>
-
-                    
+<div fxFlex="100" fxLayoutAlign="center center" fxShow="false" fxShow.gt-sm class="px-2 mb-3">
+    <!-- Conteneur pour le texte et la liste déroulante -->
+    <div class="dropdown-container">
+        <span class="dropdown-label">Liste des utilisateurs</span>
+        <select class="form-control custom-input" [(ngModel)]="selectedUser" (change)="onUserSelect()">
+          <option *ngFor="let user of users" [ngValue]="user">
+            {{ formatUser(user) }}
+          </option>
+        </select>
+      </div>
+    </div>    
                     <div fxFlex="100" fxLayoutAlign="center center" fxShow="false" fxShow.gt-sm class="px-2 mb-3">
+                       
                         <mat-button-toggle-group #group="matButtonToggleGroup" appearance="legacy" [value]="selectedCategoryId" class="categories-toogle-group mt-2" (change)="onChangeCategory($event)">
                             <mat-button-toggle [value]="0"  class="letter">
-                                All Documents
+                                 Documents
                             </mat-button-toggle>
                             <mat-button-toggle [value]="1" class="letter">
                                 Certificat
@@ -68,7 +76,7 @@
                             </mat-button-toggle>
                             <mat-button-toggle [value]="3" class="letter">
                                 
-                            assignment letter
+                            lettre d'affectaion
                             </mat-button-toggle>
                             
                         </mat-button-toggle-group>

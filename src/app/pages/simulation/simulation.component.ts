@@ -9,6 +9,8 @@ import { FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { LoginService } from 'src/app/login.service';
 import { Router } from '@angular/router';
+import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -55,21 +57,21 @@ export class SimulationComponent {
 remainingSalary:number = 0;
 motifa:"";
 empZy3bDT0 = {
-  dtef00: '',
-  idou00: '',
-  idjbo00: '',
-  typemotif: '',
-  nbHeure:0
+ 
+  typemotif: ''
 };
 numdoss: number;
 message: string;
-postes: Poste[] = [];
+postes: String[]=[];
 motif:String[]=[];
 selectedPoste: string;
 isLoggedIn:boolean;
-  constructor(private organisationService: OrganisationService,private employeeService:EmployeeService,public dialog: MatDialog,private datePipe: DatePipe,private loginService:LoginService,private router:Router) {}
+  constructor(private organisationService: OrganisationService,private employeeService:EmployeeService,public dialog: MatDialog,private datePipe: DatePipe,private loginService:LoginService,private router:Router,private snackBar:MatSnackBar) {}
   ngOnInit() {
  //   this.checkLoggedInStatus();
+ this.fetchOrganisations();
+ this.startBlinking();
+ this.fetchPostesAndMotif();
   
   }
   private checkLoggedInStatus() {
@@ -95,10 +97,12 @@ isLoggedIn:boolean;
   private fetchPostesAndMotif() {
     this.employeeService.poste().subscribe((data) => {
       this.postes = data;
+      console.log(this.postes);
     });
 
     this.employeeService.motif().subscribe((data) => {
       this.motif = data;
+      console.log(this.motif);
     });
   }
   get budgetGlobal1(): number {
@@ -197,64 +201,64 @@ getEmployeesByOrganisation(organisationId: string, listId: string): void {
   async onDrop(event: CdkDragDrop<Employee[]>) {
     console.log('onDrop triggered');
     console.log(event);
-  
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      const employee = event.previousContainer.data[event.previousIndex];
-    
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-  
-    
-  
-      if (event.container.id === 'tab1') {
-        this.gab1 -= await this.calculateSalary(employee.mtsal);
-        this.gab2 += await this.calculateSalary(employee.mtsal);
-        this.budgetAnnuel1 +=await this.calculateSalary(employee.mtsal);
-        this.budgetAnnuel2 -=await this.calculateSalary(employee.mtsal);
-        employee.selectedDate = this.selectedDate;
-        this.numdoss=employee.nudoss;
-        this.empZy3bDT0.idjbo00=this.selectedPoste;
-        this.empZy3bDT0.idou00=employee.idorg;
-      //  copiedEmployee.disableDateField = false; // Activer le champ de date dans le tableau de dépôt 1
-        //employee.disableDateField = true; // Désactiver le champ de date dans le tableau de dépôt 2
-      } else if (event.container.id === 'tab2') {
-        
-        this.gab1 += await this.calculateSalary(employee.mtsal);
-        this.gab2 -= await this.calculateSalary(employee.mtsal);
-        this.budgetAnnuel1 -=await this.calculateSalary(employee.mtsal);
-        this.budgetAnnuel2 +=await this.calculateSalary(employee.mtsal);
-        employee.selectedDate = this.selectedDate;
-        this.numdoss=employee.nudoss;
-      //  copiedEmployee.disableDateField = true; // Désactiver le champ de date dans le tableau de dépôt 1
-        //employee.disableDateField = false; // Activer le champ de date dans le tableau de dépôt 2
-      }
-  
 
-     
-      this.percentageChangeTab1 = await this.calculerPourcentageBudgetDep(this.budgetGlobal1, this.gab1);
-        this.percentageChangeResTab1 = 100 - this.percentageChangeTab1;
-
-        this.percentageChangeTab2 = await this.calculerPourcentageBudgetDep(this.budgetGlobal2, this.gab2);
-        this.percentageChangeResTab2 = 100 - this.percentageChangeTab2;
-
-
-    
-      this.empZy3bDT0.dtef00= this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
-     this.empZy3bDT0.typemotif=employee.selectedMotif;
-      this.empZy3bDT0.nbHeure=employee.nbHeure;
-      this.empZy3bDT0.idjbo00=employee.poste;
-      this.empZy3bDT0.idou00=employee.idorg;
-
-      console.log("employe0",employee);
-      console.log("employe1",this.empZy3bDT0);
-
-
+    // Vérifiez si le budget global est valide (non négatif)
+    if (this.budgetGlobal1 <= 0 || this.budgetGlobal2<= 0) {
+      this.dialog.open(AlertDialogComponent, {
+        width: '25vw',
+        height: '20vh',
+        data: 'Le budget global ne peut pas être négatif.'
+    });
+    return;
     }
-  
-   // console.log('Budget Tab 1:', this.budgetTab1);
-    //console.log('Budget Tab 2:', this.budgetTab2);
-  }
+
+    if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+        const employee = event.previousContainer.data[event.previousIndex];
+      
+        transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
+        if (event.container.id === 'tab1') {
+            this.gab1 -= await this.calculateSalary(employee.mtsal);
+            this.gab2 += await this.calculateSalary(employee.mtsal);
+            this.budgetAnnuel1 += await this.calculateSalary(employee.mtsal);
+            this.budgetAnnuel2 -= await this.calculateSalary(employee.mtsal);
+            employee.selectedDate = this.selectedDate;
+            this.numdoss = employee.nudoss;
+            //this.empZy3bDT0.idjbo00 = this.selectedPoste;
+            //this.empZy3bDT0.idou00 = employee.idorg;
+            // copiedEmployee.disableDateField = false; // Activer le champ de date dans le tableau de dépôt 1
+            // employee.disableDateField = true; // Désactiver le champ de date dans le tableau de dépôt 2
+        } else if (event.container.id === 'tab2') {
+            this.gab1 += await this.calculateSalary(employee.mtsal);
+            this.gab2 -= await this.calculateSalary(employee.mtsal);
+            this.budgetAnnuel1 -= await this.calculateSalary(employee.mtsal);
+            this.budgetAnnuel2 += await this.calculateSalary(employee.mtsal);
+            employee.selectedDate = this.selectedDate;
+            this.numdoss = employee.nudoss;
+            // copiedEmployee.disableDateField = true; // Désactiver le champ de date dans le tableau de dépôt 1
+            // employee.disableDateField = false; // Activer le champ de date dans le tableau de dépôt 2
+        }
+
+        this.percentageChangeResTab1 = await this.calculerPourcentageBudgetDep(this.budgetGlobal1, this.gab1);
+        this.percentageChangeTab1 = 100 - this.percentageChangeResTab1;
+
+        this.percentageChangeResTab2 = await this.calculerPourcentageBudgetDep(this.budgetGlobal2, this.gab2);
+        this.percentageChangeTab2 = 100 - this.percentageChangeResTab2;
+
+      //  this.empZy3bDT0.dtef00 = this.datePipe.transform(this.selectedDate, 'yyyy-MM-dd') || '';
+        this.empZy3bDT0.typemotif = employee.selectedMotif;
+      //  this.empZy3bDT0.nbHeure = employee.nbHeure;
+      //  this.empZy3bDT0.idjbo00 = employee.poste;
+       // this.empZy3bDT0.idou00 = employee.idorg;
+
+        console.log("employe0", employee);
+        console.log("employe1", this.empZy3bDT0);
+    }
+}
+
+
   
   async calculerPourcentageBudgetDep(oldBudget: number, newBudget: number): Promise<number> {
     try {
@@ -338,6 +342,13 @@ async calculerPourcentageBudgetRes(oldBudget: number, newBudget: number): Promis
           // Filtrer les employés avec un numdoss défini
           console.log(this.numdoss);
           this.updateEmployee(newIdOrg,this.numdoss);
+          this.snackBar.open('L affectation du l employee est modifiée avec succées', '×', {
+            verticalPosition: 'top',
+            duration: 10000,
+          
+            panelClass: ['success'] 
+          });
+          window.location.reload();
             
           
         }

@@ -6,7 +6,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ValidateComponent } from './validate.component';
-import { BudgetChartComponent } from 'src/app/budget-chart/budget-chart.component';
+
 
 
 export const routes: Routes = [
@@ -14,7 +14,7 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ValidateComponent,BudgetChartComponent],
+  declarations: [ValidateComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),

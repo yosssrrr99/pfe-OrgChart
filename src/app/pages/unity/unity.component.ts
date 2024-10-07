@@ -37,10 +37,12 @@ export class UnityComponent {
   isBlinking: boolean = false;
   isClicked: boolean = false;
 
-  constructor(private budgetService:BudgetService,public dialog: MatDialog,public snackBar: MatSnackBar,private router:Router){}
+  constructor(private budgetService:BudgetService,public dialog: MatDialog,public snackBar: MatSnackBar,private router:Router,private employeService:EmployeeService){}
  
   ngOnInit(): void {
     this.startBlinking();
+    this.getEmployeesByOrganisation("F0001","tab1");
+  
   }
 
   get budgetGlobal1(): number {
@@ -58,7 +60,7 @@ export class UnityComponent {
       classification: row.class
     }));
     
-    this.result = this.budgetService.calculateBudget(employees, this.budgetGlobal1);
+    this.result = this.budgetService.calculateBudget(employees,this.budgetAnnuel1, this.budgetGlobal1);
     this.minBudget = this.result.minBudget;
     this.maxBudget = this.result.maxBudget;
     this.gab1 = this.result.gab; 
@@ -124,10 +126,23 @@ export class UnityComponent {
       classification: row.class
     }));
   
-    this.result = this.budgetService.calculateBudget(employees, this.budgetGlobal1);
+    this.result = this.budgetService.calculateBudget(employees,this.budgetAnnuel1,this.budgetGlobal1);
     this.minBudget = this.result.minBudget;
     this.maxBudget = this.result.maxBudget;
-    this.gab1 = this.result.gab; 
+    this.gab1 =this.result.gab; 
+  }
+
+  getEmployeesByOrganisation(organisationId: string, listId: string): void {
+    this.employeService.getEmployeesByDepartment(organisationId).subscribe((response: EmployeeAndTotalSalaryResponse) => {
+      if (listId === 'tab1') {
+        this.tab1Data = response.employees.filter(employee => employee.idorg === "F0001");
+        this.budgetAnnuel1 = response.totalSalary;
+        this.updateGab1();
+        this.oldBuget1 = this.budgetGlobal1 - this.budgetAnnuel1;
+        
+
+      }
+    });
   }
   
   

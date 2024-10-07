@@ -14,7 +14,7 @@
     </button> 
   </span>
   <a class="logo" routerLink="/" ><app-logo></app-logo></a> 
-  <div fxShow="false" fxShow.gt-sm class="horizontal-menu" >            
+  <div fxShow="false" fxShow.gt-sm class="horizontal-menu" *ngIf="userRole === 'Manager'"  >            
     <app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>
   </div> 
   <div fxShow="false" fxShow.gt-sm class="horizontal-menu" *ngIf="userRole === 'ALLHRLO'">            
@@ -23,9 +23,9 @@
   <div fxLayout="row" fxLayoutAlign="start center">
    
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button mat-menu-item routerLink="/account/profile">
         <mat-icon>person</mat-icon>
-        <span>profil</span>
+        <span> profil</span>
       </button>
       <button mat-menu-item (click)="logout()">
         <mat-icon>logout</mat-icon>
@@ -35,23 +35,40 @@
    
     </mat-menu>
     
-    <app-notification ></app-notification>
+    <app-notification *ngIf="userRole === 'ALLHRLO'"></app-notification>
 
   
-    <button mat-icon-button matTooltip="Notifications" [matMenuTriggerFor]="notificationsMenu" class="mx-2" *ngIf="userRole === 'ALLHRLO'">
-      <mat-icon class="large-icon">notifications</mat-icon>
-      <span *ngIf="unreadNotificationsCount > 0" class="notification-badge">{{ unreadNotificationsCount }}</span>
-    </button>
-    <mat-menu #notificationsMenu="matMenu">
-      <ng-container *ngIf="unreadNotificationsCount > 0; else noNotifications">
-        <button mat-menu-item *ngFor="let notification of notificationsManager" (click)="markAsRead(notification)">
-                {{ notification.message }}
-        </button>
-      </ng-container>
-      <ng-template #noNotifications>
-        <button mat-menu-item disabled>pas de notifications</button>
-      </ng-template>
-    </mat-menu>
+ 
+    
+    <button mat-icon-button 
+    [matBadge]="pendingRequestsCount + pendingRequestsCountRemm > 0 ? pendingRequestsCount + pendingRequestsCountRemm : undefined" 
+    matBadgeColor="warn" 
+    [matMenuTriggerFor]="notificationMenu" *ngIf="userRole === 'Manager'">
+<mat-icon>notifications</mat-icon>
+</button>
+
+<mat-menu #notificationMenu="matMenu" class="notification-menu">
+<ng-container *ngIf="notifications.length + notificationsRemm.length > 0; else noNotifications">
+<button mat-menu-item *ngFor="let notification of notifications" (click)="handleNotificationClick(notification, 'statusRec')">
+  <div class="notification-item">
+    <p>{{ notification }}</p>
+  </div>
+</button>
+<button mat-menu-item *ngFor="let notification of notificationsRemm" (click)="handleNotificationClick(notification, 'statusRemm')">
+  <div class="notification-item">
+    <p>{{ notification }}</p>
+  </div>
+</button>
+<button mat-menu-item (click)="clearAllMessages('statusRec')">Clear All Notifications</button>
+<button mat-menu-item (click)="clearAllMessages('statusRemm')">Clear All StatusRemm</button>
+</ng-container>
+<ng-template #noNotifications>
+<button mat-menu-item disabled>pas de notifications</button>
+</ng-template>
+</mat-menu>
+
+    
+ 
 
 
     <button mat-icon-button class="large-icon" [matMenuTriggerFor]="menu" matTooltip="Comptes" class="mx-2" fxShow="false" fxShow.gt-xs="true">

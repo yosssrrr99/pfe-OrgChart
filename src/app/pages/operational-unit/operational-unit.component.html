@@ -1,54 +1,43 @@
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-</head>
-<!-- <app-navbar></app-navbar> -->
-<div class="body" >
-  <!-- Search Input -->
-  <div class="input-group">
-    <input type="search" placeholder="Search Employee..." [(ngModel)]="searchEmployee" >
-    <img src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-22.png" alt="">
-  </div>
- 
-  <div class="card custom-card overflow-x-auto"  >
-    <p-organizationChart  [value]="data" selectionMode="multiple" [(selection)]="selectedNodes" styleClass="p-datatable-gridlines" style="color: black; "  >
-      <ng-template let-node pTemplate="person"  >
-     
-        <tr *ngIf="isMatch(node, searchEmployee)"  >
-
-        <div class="p-2 text-center custom-div" (mouseenter)="showOverlay($event, node)" (mouseleave)="hideOverlay()"  cdkDrag>
-          <!-- Node content -->
-       
-          <div class="flex" > 
-            <img [src]="node.data.image" class="mb-3 custom-image" />
+<div class="input-group">
+  <input type="search" placeholder="Rechercher un employé..." [(ngModel)]="searchEmployee" >
+  <img src="https://www.freeiconspng.com/thumbs/search-icon-png/search-icon-png-22.png" alt="">
+</div>
+<div class="container">
+  <!-- Main Organization Chart -->
+  <p-organizationChart [value]="nodes" selectionMode="single" (onNodeSelect)="onNodeSelect($event)" styleClass="p-datatable-gridlines">
+    <ng-template let-node pTemplate="person">
+      <div *ngIf="isMatch(node, searchEmployee)">
+        <div class="custom-node" (mouseenter)="showOverlay($event, node)" (mouseleave)="hideOverlay()">
+          <div class="custom-content">
+            <img [src]="getImageSrc()" class="custom-image" />
             <div class="data-container">
-              <div class="font-bold" style="color: #2F58CD;">{{ node.data.name }}</div>
-              <div class="bold-title">{{ node.data.title }}</div>
+              <div class="font-bold">{{ node.data.idorg || 'No ID' }}</div> <!-- Display idorg -->
+              <div class="bold-title">{{ node.data.nameManager || 'No Manager' }}</div> <!-- Display manager's name -->
             </div>
           </div>
         </div>
-        </tr>
-      </ng-template>
-    </p-organizationChart>
-    <!-- Overlay Container -->
-    <div *ngIf="showOverlayFlag" class="overlay" [style.left.px]="overlayPosition.left"
-      [style.top.px]="overlayPosition.top">
-      <div class="card-container" >
-        <div class="flex" >
-          <img class="round"  [src]="selectedNode?.data?.image" alt="user" />
-          <div class="data-container" >
-            <h3>{{ selectedNode?.data?.name }}</h3>
-            <h6>{{ selectedNode?.data?.dep }}</h6>
-            <p>{{ selectedNode?.data?.title }}</p>
-          </div>
-        </div>
-        <div class="cordonnees">
-          <h6 style="color: #495c83;">Cordonnées</h6>
-          <div class="list-item" style="color:black" ><i class="fa fa-phone" style="margin-right: 8px;"></i>{{ selectedNode?.data?.tel }}</div>
-          <div class="list-item" style="color: black;"><i class="fa fa-envelope-o" style="margin-right: 8px;"></i>{{ selectedNode?.data?.email }}
+      </div>
+    </ng-template>
+  </p-organizationChart>
+
+  <!-- Secondary Chart for Manager and Employees -->
+  <p-organizationChart *ngIf="managerEmployeeNodes.length > 0" [value]="managerEmployeeNodes" styleClass="p-datatable-gridlines">
+    <ng-template let-node pTemplate="person">
+      <div class="custom-node" cdkDrag>
+        <div class="custom-content">
+          <img [src]="getImageSrc()" class="custom-image" />
+          <div class="data-container">
+            <div class="font-bold">{{ node.data.nameEmployee }}</div> <!-- Display employee's name -->
+            <div class="bold-title">{{ node.data.positionEmployee || 'No Position' }}</div> <!-- Display position -->
           </div>
         </div>
       </div>
-    </div>
-  </div>
+    </ng-template>
+  </p-organizationChart>
+
+
+ 
+  
+  
+

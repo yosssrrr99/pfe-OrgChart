@@ -1,0 +1,96 @@
+<div fxLayoutAlign="center center"><h1 class="secondary-font p-2 text-center">Simulation de rémuneration</h1></div>
+
+<div class="px-3">
+  <div class="theme-container">
+    <mat-card class="main-content-header mb-5 small-card">
+      <div class="p-3">
+        <div fxLayout="row wrap" fxLayoutAlign="space-around">
+
+          <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+              <h3 class="primary-color py-1">Budget Annuel:</h3>
+              <span class="info-value">{{ budgetAnnuel1 | number:'1.0-2' }}</span>
+            </div>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">attach_money</mat-icon>
+              <h3 class="primary-color py-1">BUDGET GLOBAL :</h3>
+              <mat-form-field>
+                <input class="info-value" matInput type="number" [(ngModel)]="budgetGlobal1" required>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">savings</mat-icon>
+              <h3 class="primary-color py-1">Budget Restant :</h3>
+              <span class="info-value">{{ gab1 | number:'1.0-2' }}</span>
+            </div>
+          </div>
+
+          <div fxFlex="48" class="info-box mt-2 percentage-spent">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
+              <h3 class="primary-color py-1">Pourcentage Dépensé :</h3>
+              <span class="info-value">{{ percentageChangeTab1 | number:'1.0-2' }}%</span>
+            </div>
+          </div>
+
+          <div fxFlex="48" class="info-box mt-2 percentage-remaining">
+            <div fxLayout="column" fxLayoutAlign="center center">
+              <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
+              <h3 class="primary-color py-1">Pourcentage Restant :</h3>
+              <span class="info-value">{{ percentageChangeResTab1 | number:'1.0-2' }}%</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+
+<div class="container">
+  <main class="table" id="customers_table_1">
+    <section class="table__body">
+      <table>
+        <thead>
+          <tr>
+            <th>Nom et Prénom</th>
+            <th>Poste</th>
+            <th>Salaire</th>
+            <th>Pourcentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container>
+            <tr *ngFor="let employee of tab1Data">
+              <td>
+                <img [src]="getImageSrc()" alt="employee image">
+                {{ employee.nom }}
+              </td>
+              <td>{{ employee.poste }}</td>
+              <td>{{ employee.mtsal }}</td>
+              <td>
+                <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px;">
+                  <mat-label>Pourcentage</mat-label>
+                  <input matInput type="number" (change)="updateSalary($event, employee)">
+                </mat-form-field>
+              </td>
+              <td>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </section>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button mat-raised-button color="primary" (click)="updateRemunerationRequest()">Modifier</button>
+      <button mat-raised-button color="warn" style="margin-left:10px;"  (click)="deleteEmployee()">Annuler</button>
+    </div>
+  </main>
+</div>

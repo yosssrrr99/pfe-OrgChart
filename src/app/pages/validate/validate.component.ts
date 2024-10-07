@@ -27,7 +27,7 @@ export class ValidateComponent implements OnInit,AfterViewInit,OnDestroy {
   filteredEmployees: EmployeeRec[] = [];
   searchTerm: string = '';
   managers: String[] = [];
-  selectedManagerId: string = '';
+  selectedManagerId: string = '123456';
   intervalId:number;
 
   constructor(
@@ -47,13 +47,10 @@ export class ValidateComponent implements OnInit,AfterViewInit,OnDestroy {
     });  }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      console.log(this.selectedManagerId)
-      if (params['managerId']) {
-        this.selectedManagerId = params['managerId'];
+    
         this.getEmployeesByIdOrg();
-      }
-    });
+      
+  
 
 
 
@@ -63,9 +60,6 @@ export class ValidateComponent implements OnInit,AfterViewInit,OnDestroy {
 
     });
 
-    this.intervalId=window.setInterval(()=>{
-      this.refreshData();
-    },10000);
    
   }
   ngOnDestroy(): void {

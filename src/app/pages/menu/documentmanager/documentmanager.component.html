@@ -1,0 +1,115 @@
+<div class="px-3">  
+    <div class="theme-container"> 
+        <mat-sidenav-container class="all-menu-items mt-3">
+            <mat-sidenav #sidenav [autoFocus]="false" [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="search-sidenav">
+                <ng-scrollbar pointerEventsMethod="scrollbar"> 
+                    <mat-card> 
+                        <button fxHide="false" fxHide.gt-xs mat-icon-button (click)="sidenav.toggle()">
+                            <mat-icon color="accent">close</mat-icon>
+                        </button>
+                    
+                       
+                    </mat-card> 
+                </ng-scrollbar>
+            </mat-sidenav>
+            
+
+
+            <mat-sidenav-content [class.distance]="sidenavOpen">
+                <div fxLayout="row wrap" class="all-menu-items-wrapper mt-0">
+                   <div class="container">
+    <div class="p-2 o-hidden">
+        <h1 class="secondary-font text-center lab">Ajouter Document</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card custom-card">
+                    <div class="card-body">
+                        <form>
+                          
+                            <div class="mb-3">
+                                <label for="category" class="form-label custom-label">Catégorie</label>
+                                <br/>
+                                <select class="form-control custom-input" id="category" [(ngModel)]="category" name="category">
+                                  <option *ngFor="let category of categories" [value]="category">{{ category }}</option>
+                                </select>
+                              </div>                              
+                            <div class="mb-3">
+
+                                <br/>
+                                <label for="file-upload" class="custom-file-upload">
+                                    <i class="fas fa-cloud-upload-alt"></i> 
+                                    <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+                                    <span *ngIf="!selectedFileName">Choisir un fichier</span>
+                                </label>
+                                <input type="file" class="form-control custom-input" id="file-upload" style="display:none;"  (change)="onFileSelected($event)" multiple>
+                            </div>
+                            <button type="button" class="btn custom-btn w-100 my-2" (click)="save()" >Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+   
+                    <div fxFlex="100" fxLayoutAlign="center center" fxShow="false" fxShow.gt-sm class="px-2 mb-3">
+                       
+                        <mat-button-toggle-group #group="matButtonToggleGroup" appearance="legacy" [value]="selectedCategoryId" class="categories-toogle-group mt-2" (change)="onChangeCategory($event)">
+                            <mat-button-toggle [value]="0"  class="letter">
+                                 Documents
+                            </mat-button-toggle>
+                            <mat-button-toggle [value]="1" class="letter">
+                                Certificat
+                            </mat-button-toggle>
+                            <mat-button-toggle [value]="2" class="letter">
+                                cv
+                            </mat-button-toggle>
+                            <mat-button-toggle [value]="3" class="letter">
+                                
+                            lettre d'affectaion
+                            </mat-button-toggle>
+                            
+                        </mat-button-toggle-group>
+                    </div>
+            
+
+
+                    <div *ngFor="let document of documentsList" [fxFlex]="(viewType=='grid') ? viewCol : 100"  class="item">  
+                        <mat-card class="menu-item p-0" >   
+                            <div fxFlex="100" class="thumbnail-section">
+                                <img *ngIf="isImage(document.fullPath)" [src]="'https://houssemjrad.blob.core.windows.net/houssemblob/' + document.fullPath" class="w-100 d-block">
+                                <img *ngIf="!isImage(document.fullPath)" src="assets/images/others/pdf.png" class="w-100 d-block">
+                            </div> 
+                            <div fxFlex="100" class="p-3"> 
+                                <div fxLayout="column" fxLayoutAlign="start stretch" class="h-100">
+                                    <mat-card-content class="mb-0 p-0">
+                                        <h1 class="title">{{document.category}}</h1>
+                                        
+                                        <mat-icon class="ic" (click)="downloadFile(document.fullPath)">download</mat-icon>
+                                        <mat-icon  class="delete-icon" (click)="deleteFile(document.fullPath)">delete</mat-icon>
+                                    </mat-card-content>
+                                 </div>   
+                            </div>  
+                        </mat-card>
+                    </div>
+
+             
+
+        
+                       
+        
+                    <div *ngIf="menuItems && menuItems.length > 0" fxFlex="100" fxLayoutAlign="center center" class="p-2">
+                        <mat-paginator [length]="pagination?.total"
+                                      [pageSize]="pagination?.perPage"
+                                      (page)="onPageChange($event)"
+                                      class="w-100 mat-elevation-z1">
+                        </mat-paginator>
+                    </div>        
+
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container> 
+    </div>
+</div>
+
+

@@ -1,14 +1,31 @@
-<button mat-icon-button matBadge="{{ pendingRequestsCount }}" matBadgeColor="warn" [matMenuTriggerFor]="notificationMenu">
+<button mat-icon-button 
+        [matBadge]="pendingRequestsCount + pendingRequestsCountRem > 0 ? pendingRequestsCount + pendingRequestsCountRem : undefined" 
+        matBadgeColor="warn" 
+        [matMenuTriggerFor]="notificationMenu">
   <mat-icon>notifications</mat-icon>
 </button>
+
 <mat-menu #notificationMenu="matMenu" class="notification-menu">
-  <ng-container *ngIf="notifications.length > 0; else noNotifications">
-    <button mat-menu-item *ngFor="let notification of notifications" (click)="navigateToRequest(notification)">
-      <div class="notification-item">
-        <p>{{ notification }}</p>
-        <span class="text-muted">{{ notification.timestamp | date:'short' }}</span>
-      </div>
-    </button>
+  <ng-container *ngIf="notifications.length > 0 || notificationsRem.length > 0; else noNotifications">
+    <!-- Section for notifications from 'notifications' topic -->
+    <ng-container *ngFor="let notification of notifications">
+      <button mat-menu-item (click)="handleNotificationClick(notification, 'notifications')">
+        <div class="notification-item">
+          <p>{{ notification }}</p>
+          <span class="text-muted">{{ notification.timestamp | date:'short' }}</span>
+        </div>
+      </button>
+    </ng-container>
+    <mat-divider *ngIf="notifications.length > 0 && notificationsRem.length > 0"></mat-divider>
+    <!-- Section for notifications from 'statusRec' topic -->
+    <ng-container *ngFor="let notification of notificationsRem">
+      <button mat-menu-item (click)="handleNotificationClick(notification, 'statusRem')">
+        <div class="notification-item">
+          <p>{{ notification }}</p>
+          <span class="text-muted">{{ notification.timestamp | date:'short' }}</span>
+        </div>
+      </button>
+    </ng-container>
   </ng-container>
   <ng-template #noNotifications>
     <button mat-menu-item disabled>

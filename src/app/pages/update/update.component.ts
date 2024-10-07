@@ -4,7 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 import { BudgetService } from 'src/app/budget.service';
-import { Employee } from 'src/app/employee-service';
+import { Employee, EmployeeService } from 'src/app/employee-service';
+import { AlertDialogComponent } from 'src/app/shared/alert-dialog/alert-dialog.component';
 import { ConfirmDialogComponent, ConfirmDialogModel } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 @Component({
@@ -20,6 +21,7 @@ export class UpdateComponent {
   private _budgetGlobal1: number = 0;
   isBlinking: boolean = false;
   isClicked: boolean = false;
+  budgetAnnuel:number;
 
   dynamicRows: any[] = [{ number: 0, class: 'junior' }];
 
@@ -32,6 +34,7 @@ export class UpdateComponent {
     public dialog: MatDialog,
     private snackBar: MatSnackBar,
     public router: Router,
+
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -54,10 +57,12 @@ export class UpdateComponent {
   handleClick() {
     this.isClicked = true;
   }
+  
 
   getEmployeesByIdOrg(): void {
     this.budgetService.getEmployeesByDepartment(this.departmentId).subscribe((employees: any[]) => {
       this.dynamicRows = employees.map(emp => ({
+        id: emp.id,
         number: emp.number,
         class: emp.classification
       }));
@@ -110,6 +115,33 @@ export class UpdateComponent {
       this.calculateBudget();
     }
   }
+  cancelRow(index: number): void {
+    
+    const dialogData = new ConfirmDialogModel('Confirmation', 'Êtes-vous sûr de vouloir annuler cette ligne?');
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '25vw',
+      height: '20vh',
+      data: dialogData
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+     
+        this.budgetService.deleteEmployeeById(index).subscribe(
+          () => {
+            this.removeRow(index); // Supprimez la ligne du tableau dynamique
+            this.snackBar.open('Ligne supprimée avec succès!', 'Fermer', { duration: 3000 });
+            this.router.navigate(['/history']);
+          },
+          error => {
+            console.error('Erreur lors de la suppression de l\'employé:', error);
+            this.snackBar.open('Erreur lors de la suppression de l\'employé.', 'Fermer', { duration: 3000 });
+          }
+        );
+      }
+    });
+  }
+
 
   onEmployeeChange(): void {
     this.calculateBudget();
@@ -121,7 +153,7 @@ export class UpdateComponent {
       classification: row.class
     }));
 
-    this.result = this.budgetService.calculateBudget(employees, this.budgetGlobal1);
+    this.result = this.budgetService.calculateBudget2(employees, this.budgetGlobal1);
  
    this.gab1 = this.result.gab;
    console.log('Calculated gab:', this.result.gab);
@@ -130,15 +162,22 @@ export class UpdateComponent {
   }
 
   isFormValid(): boolean {
-    return this.budgetGlobal1 !== 0 && this.dynamicRows.some(row => row.number !== 0);
+    // Vérifiez si le budget global est défini et que chaque ligne dans dynamicRows a un nombre et une classification valides
+    return this.budgetGlobal1 > 0 &&
+           this.dynamicRows.every(row => row.number > 0 && row.class && row.class.trim() !== '');
   }
 
   confirm(): void {
     if (!this.isFormValid()) {
-      this.snackBar.open('Veuillez remplir toutes les sélections de classification.', '×', { panelClass: 'warning', duration: 5000 });
+      // Ouvrir un dialogue d'alerte si les champs ne sont pas valides
+      this.dialog.open(AlertDialogComponent, {
+        width: '25vw',
+        height: '20vh',
+        data: 'Veuillez remplir tous les champs correctement avant de confirmer.'
+      });
       return;
     }
-    const dialogData = new ConfirmDialogModel('Modifier', 'Êtes-vous sûr de vouloir modifier?');
+    const dialogData = new ConfirmDialogModel('Confirmer', 'Êtes-vous sûr de vouloir modifier?');
 
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '25vw',
@@ -149,6 +188,7 @@ export class UpdateComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const employees = this.dynamicRows.map(row => ({
+          id: row.id,
           number: row.number,
           classification: row.class
         }));
@@ -177,7 +217,8 @@ export class UpdateComponent {
   getImageSrc(blobData: string): string {
     return blobData === '0' ? 'assets/images/others/vide.jpg' : blobData;
   }
-
+ 
+  
   cancelEnvelope(): void {
     const dialogData = new ConfirmDialogModel('Confirmation', 'Êtes-vous sûr de vouloir annuler cette enveloppe?');
 
@@ -186,19 +227,20 @@ export class UpdateComponent {
       height: '30vh',
       data: dialogData
     });
+    const dep:string="P00000653";
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const idorg = this.departmentId.trim();
+        const idorg = dep.trim();
         this.budgetService.deleteEnvelope(idorg).subscribe(
           response => {
-            this.snackBar.open('Envelope deleted successfully', 'Fermer', { duration: 3000 });
-            this.router.navigate(['/history']);
+            this.snackBar.open('La ligne est supprimée avec succées !', '×', { panelClass: 'success', duration: 5000 });
+            this.router.navigate(['/unity']);
           },
           error => {
             console.error('Error deleting envelope:', error);
             const errorMessage = error.error ? error.error : "Une erreur s'est produite lors de la suppression de l'enveloppe.";
-            this.snackBar.open(errorMessage, 'Fermer', { duration: 3000 });
+            this.snackBar.open(errorMessage, '×', { panelClass: 'success', duration: 5000 });
           }
         );
       }

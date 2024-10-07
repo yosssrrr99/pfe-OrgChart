@@ -10,15 +10,16 @@ import { filter, map } from 'rxjs/operators';
 import { MenuItem, Pagination } from 'src/app/app.models';
 import { AppService } from 'src/app/app.service';
 import { AppSettings, Settings } from 'src/app/app.settings';
-import { DocumentService } from 'src/app/document.service';
+import { DocumentService, UsersResponse } from 'src/app/document.service';
 import { FileService } from 'src/app/file.service';
 
 
 
 interface Document {
-  userName: string;
-  fileName:string;
-  category:string;
+  id: number;         // Add this if the backend returns an ID
+  userName: string;   // Make sure this exists in the API response
+  fileName: string;   // Make sure this matches the backend property
+  category: string;   // Make sure this matches the backend property
 }
 
 
@@ -48,12 +49,14 @@ export class MenuComponent implements OnInit {
   userName: string = '';
   category : string='';
   image: Blob;
+  
 
   selectedFile:any[]=[];
   filenames: string;
   documentList:Document[]=[]
   fileName: string = '';
- 
+  selectedCategory: string = '';
+  app:string='http://localhost:9099/Cool/api/files';
 
   constructor(public appSettings:AppSettings, public appService:AppService,public fileService:FileService, public mediaObserver: MediaObserver, private httpClient:HttpClient,private documentService: DocumentService) {
     this.settings = this.appSettings.settings; 
@@ -84,22 +87,71 @@ export class MenuComponent implements OnInit {
 
 
   }
+  users: UsersResponse[] = [];
+  selectedUser: UsersResponse | null = null;
 
   ngOnInit(): void {
+    this.selectCategory("AUTRE");
+    this.documentService.getUsers().subscribe(data => {
+      this.users = data;
+    });
+    this.documentService.getCategories().subscribe(
+      (data: string[]) => {
+        this.categories = data;
+      },
+      (error) => {
+        console.error('Error fetching categories', error);
+      }
+    );
+  console.log(this.category);
     
-    this.selectCategory("all");
-    
-   
+  this.documentService.isLoggedIn().subscribe(
+    userName => {
+      this.userName = userName;  // Stocker le nom d'utilisateur récupéré
+      console.log('User name:', this.userName);
+    },
+    error => {
+      console.error('Erreur lors de la vérification de l\'utilisateur:', error);
+    }
+  );
+
+  }
+  formatUser(user: UsersResponse): string {
+    return `${user.firstName} - ${user.nomorg}`;
   }
   public async getDocumentList(): Promise<Document[]> {
     try {
-      return await this.httpClient.get<Document[]>("http://localhost:9095/Cool/api/files/all").toPromise();
+      return await this.httpClient.get<Document[]>("http://localhost:9099/Cool/api/files/all").toPromise();
     } catch (error) {
       throw error;
     }
   }
   
-
+  onUserSelect(): void {
+    if (this.selectedUser) {
+      const userName = this.selectedUser.firstName;  // Assuming userName is a field in UsersResponse
+      this.getDocumentsByUser(userName);
+    }
+  }
+  getDocumentsByUser(userName: string): void {
+    this.documentService.getDocumentsByUserName(userName).subscribe(
+      (documents: any[]) => {
+        this.documentsList = documents.map(doc => ({
+          id: doc.id,
+          userName: doc.userName,      // Assuming your API returns 'userName'
+          fileName: doc.fileName,      // Assuming your API returns 'fileName'
+          category: doc.category       // Assuming your API returns 'category'
+        }));
+        console.log('Documents for user:', userName, this.documentsList);
+      },
+      error => {
+        console.error('Error fetching documents for user:', error);
+      }
+    );
+  }
+  
+  
+  
   loadImage(filename: string): void {
     this.documentService.getImage(filename).subscribe(
       data => {
@@ -121,20 +173,21 @@ export class MenuComponent implements OnInit {
 
 
   public async selectCategory(category: string): Promise<void> {
-    if (category === 'all') {
-      // Si la catégorie sélectionnée est "Others" ou "All Documents",
-      // récupérez tous les documents sans filtrer par catégorie
-      try {
-        this.documentsList = await this.getDocumentList();
-        console.log('Documents récupérés :', this.documentsList);
-      } catch (error) {
-        console.error('Une erreur est survenue lors de la récupération des documents :', error);
-      }
+    if (category === 'AUTRE') {
+      // Si la catégorie sélectionnée est "AUTRE", récupérez tous les documents
+      this.documentService.getDocumentsByUserAndCategory(this.selectedUser.firstName,category).subscribe(
+        (documents) => {
+          this.documentsList = documents;
+          console.log('Documents récupérés :', this.documentsList);
+        },
+        (error) => {
+          console.error('Une erreur est survenue lors de la récupération des documents :', error);
+        }
+      );
     } else {
       // Sinon, récupérez les documents pour la catégorie spécifiée
-      this.documentService.getDocumentByCategory(category).subscribe(
+      this.documentService.getDocumentsByUserAndCategory(this.selectedUser.firstName,category).subscribe(
         (documents) => {
-          // Affectez les documents récupérés à la variable
           this.documentsList = documents;
           console.log('Documents récupérés :', this.documentsList);
         },
@@ -145,22 +198,23 @@ export class MenuComponent implements OnInit {
     }
   }
   
+  
 
   public onChangeCategory(event: any): void { 
     const selectedCategory = event.value;
 
     switch (selectedCategory) {
       case 0:
-        this.selectCategory('all');
+        this.selectCategory('AUTRE');
         break;
       case 1:
-        this.selectCategory('certificat');
+        this.selectCategory('CERTIFICAT');
         break;
       case 2:
-        this.selectCategory('cv');
+        this.selectCategory('CV');
         break;
       case 3:
-        this.selectCategory('assignment letter');
+        this.selectCategory('LETTRE');
         break;
       
         default:
@@ -233,24 +287,32 @@ export class MenuComponent implements OnInit {
 
     
   }
-  save():void{
+  save(): void {
     this.selectedFile.forEach(file => {
       const formData = new FormData();
-      formData.append("files", file);
-      formData.append("userName", this.userName);
-      formData.append("category", this.category);
-      this.httpClient.post("http://localhost:9095/Cool/api/files", formData).subscribe(
+      formData.append("files", file);  // File input
+      formData.append("userName", this.userName || '');  // User name
+      formData.append("category", this.category || '');  // Category
+  
+     // console.log('FormData content:', formData.get('files'), formData.get('userName'), formData.get('category'));
+     console.log('FormData content:', {
+      files: formData.get('files'),
+      userName: formData.get('userName'),
+      category: formData.get('category')
+    });
+      this.httpClient.post("http://localhost:9099/Cool/api/files", formData).subscribe(
         response => {
           console.log("File uploaded successfully:", response);
-          this.selectCategory("all");
+          this.selectCategory("AUTRE");
         },
         error => {
           console.error("Error uploading file:", error);
         }
       );
     });
-
   }
+  
+  
  
   isImage(fileName: string): boolean {
     const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
@@ -286,7 +348,7 @@ downloadFile(blobName: string): void {
 deleteFile(filename: string): void {
   this.documentService.deleteFile(filename).subscribe(
     () => {
-      this.selectCategory("all");
+      this.selectCategory("AUTRE");
       console.log('File deleted successfully');
     },
     (error) => {

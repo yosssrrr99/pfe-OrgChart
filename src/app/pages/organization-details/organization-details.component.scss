@@ -1,0 +1,53 @@
+/* Same styles as in operational-unit.component.scss */
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 1rem;
+    overflow: auto;
+    border-radius: 1rem;
+  }
+  
+  .p-organizationChart {
+    width: 100%;
+    max-height: 80vh;
+    overflow: auto;
+  }
+  
+  .custom-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .custom-image {
+    width: 40px;
+    height: auto;
+    margin-right: 6px;
+  }
+  
+  .data-container {
+    flex-grow: 1;
+  }
+  
+  .font-bold {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2F58CD;
+  }
+  
+  .bold-title {
+    font-size: 10px;
+    color: #8696FE;
+  }
+  
+  .p-organizationChart .p-overlay-connector {
+    stroke: black;
+    stroke-width: 2px;
+  }
+  
+  @media (max-width: 768px) {
+    .p-organizationChart {
+      max-height: 60vh;
+    }
+  }
+  

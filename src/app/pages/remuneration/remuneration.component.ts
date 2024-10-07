@@ -84,6 +84,7 @@ export class RemunerationComponent {
   ngOnInit() {
     this.fetchOrganisations();
     this.startBlinking();
+    this.getEmployeesByOrganisation("F0001", 'tab1');
   }
 
 
@@ -163,17 +164,12 @@ export class RemunerationComponent {
     );
   }
 
-  onSelect1(event: any, listId: string) {
-    this.selectedOrganisation1 = event.value;
-    if (this.selectedOrganisation1) {
-      this.getEmployeesByOrganisation(this.selectedOrganisation1.idorg, 'tab1');
-    }
-  }
+
 
   getEmployeesByOrganisation(organisationId: string, listId: string): void {
     this.employeeService.getEmployeesByDepartment(organisationId).subscribe((response: EmployeeAndTotalSalaryResponse) => {
       if (listId === 'tab1') {
-        this.tab1Data = response.employees.filter(employee => employee.idorg === this.selectedOrganisation1.idorg);
+        this.tab1Data = response.employees.filter(employee => employee.idorg === "F0001");
         this.budgetAnnuel1 = response.totalSalary;
         this.updateGab1();
         this.oldBuget1 = this.budgetGlobal1 - this.budgetAnnuel1;
@@ -198,6 +194,29 @@ export class RemunerationComponent {
     }
   }
   confirm() {
+    // Vérifiez si chaque employé a un pourcentage valide
+    const invalidEntries = this.tab1Data.some(employee => {
+      return this.pourcentage === undefined || 
+             this.pourcentage === null || 
+             isNaN( this.pourcentage) || 
+             this.pourcentage < 0;
+    });
+
+    // Vérifiez si les salaires sont valides
+    const invalidSalaries = this.tab1Data.some(employee => 
+      isNaN(employee.mtsal) || employee.mtsal <= 0
+    );
+    
+    if (invalidEntries || invalidSalaries) {
+      
+      this.dialog.open(AlertDialogComponent, {
+        width: '25vw',
+        height: '20vh',
+        data: 'Veuillez remplir tous les champs ou ajuster les salaires avant de confirmer.'
+      });
+      return;
+    
+  }
     const dialogData = new ConfirmDialogModel('Confirmation', 'Êtes-vous sûr de vouloir confirmer?');
   
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
@@ -208,35 +227,16 @@ export class RemunerationComponent {
   
     dialogRef.afterClosed().subscribe(dialogResult => {
       if (dialogResult) {
-        // Vérifiez si chaque employé a un pourcentage valide
-        const invalidEntries = this.tab1Data.some(employee => {
-          return this.pourcentage === undefined || 
-                 this.pourcentage === null || 
-                 isNaN( this.pourcentage) || 
-                 this.pourcentage < 0;
-        });
+        
   
-        // Vérifiez si les salaires sont valides
-        const invalidSalaries = this.tab1Data.some(employee => 
-          isNaN(employee.mtsal) || employee.mtsal <= 0
-        );
-  
-        if (invalidEntries || invalidSalaries) {
-      
-            this.dialog.open(AlertDialogComponent, {
-              width: '25vw',
-              height: '20vh',
-              data: 'Veuillez remplir tous les champs ou ajuster les salaires avant de confirmer.'
-            });
-            return;
-          
-        }
   
         // Préparer les données pour l'envoi
         const data = this.tab1Data.map(employee => ({
           idorg: employee.idorg,
           date: new Date(),
           budgetGloabl: this.budgetGlobal1,
+          budgetAnnuel:this.budgetAnnuel1,
+          pourcentage:this.pourcentage,
           gab: this.gab1,
           nom: employee.nomuse,
           mtsal: employee.mtsal,
@@ -247,6 +247,7 @@ export class RemunerationComponent {
         this.employeeService.saveEmployeeRem(data, this.budgetGlobal1, this.gab1, this.selectedOrganisation1?.idorg)
           .subscribe(response => {
             console.log('Data saved successfully:', response);
+            this.router.navigate(['/history-rem']);
             this.snackBar.open('La demande est ajoutée avec succées', '×', {
               verticalPosition: 'top',
               duration: 5000,
@@ -256,11 +257,7 @@ export class RemunerationComponent {
             // Gérer la réponse comme nécessaire
           }, error => {
             console.error('Error saving data:', error);
-            this.dialog.open(AlertDialogComponent, {
-              width: '25vw',
-              height: '20vh',
-              data: 'Veuillez remplir tous les champs ou ajuster les salaires avant de confirmer.'
-            });
+           
             return;
             // Gérer l'erreur comme nécessaire
           });

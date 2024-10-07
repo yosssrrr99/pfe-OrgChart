@@ -2,9 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from '../../shared/shared.module';
-import { OrganizationChartModule } from 'primeng/organizationchart';
+import { TreeModule } from 'primeng/tree'; // Assurez-vous que vous importez TreeModule
 import { OperationalUnitComponent } from './operational-unit.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TreeMapModule } from '@swimlane/ngx-charts';
+import { OrganizationChartModule } from 'primeng/organizationchart';
 
 export const routes: Routes = [
   { path: '', component: OperationalUnitComponent, pathMatch: 'full' }
@@ -16,9 +18,10 @@ export const routes: Routes = [
     CommonModule,
     RouterModule.forChild(routes),
     SharedModule,
+    TreeMapModule,
     OrganizationChartModule,
-     DragDropModule
-    
+    TreeModule, // Assurez-vous d'importer TreeModule ici
+    DragDropModule
   ]
 })
 export class OperationalUnitModule { }

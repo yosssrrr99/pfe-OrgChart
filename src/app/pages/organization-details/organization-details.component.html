@@ -1,0 +1,15 @@
+<div class="container">
+  <p-organizationChart [value]="nodes" styleClass="p-datatable-gridlines">
+    <ng-template let-node pTemplate="person">
+      <div class="custom-node" cdkDrag>
+        <div class="custom-content">
+          <img [src]="getImageSrc()" class="custom-image" />
+          <div class="data-container">
+            <div class="font-bold">{{ node.data.nameEmployee }}</div> <!-- Display employee name -->
+            <div class="bold-title">{{ node.data.title }}</div> <!-- Display title -->
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </p-organizationChart>
+</div>

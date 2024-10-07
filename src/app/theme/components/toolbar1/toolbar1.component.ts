@@ -22,23 +22,42 @@ export class Toolbar1Component implements OnInit,OnDestroy {
   notificationsManager: Notification[] = [];
   unreadNotificationsCount = 0;
   intervalId:number;
+
+  notificationsRemm: any[] = [];
+  pendingRequestsCountRemm: number = 0;
   ngOnInit() { 
     this.fetchUserRole();
-    this.fetchUnreadNotificationsCount("123456");
+    this.loadMessagesRemm();
     this.simulationRec.getNotifications("123456").subscribe((notifications: Notification[]) => {
       this.notificationsManager = notifications;
     });
     this.intervalId=window.setInterval(()=>{
       this.refreshData();
     },10000);
+    
    
   }
+
+
+  loadMessagesRemm(): void {
+    this.notificationService.getMessagesRemm().subscribe(
+      (data: string[]) => {
+        this.notificationsRemm = data;
+        console.log(data);
+        this.pendingRequestsCountRemm = data.length;
+      },
+      error => {
+        console.error('Error fetching messages', error);
+      }
+    );
+  }
+
 
   fetchUnreadNotificationsCount(idManager: string): void {
     this.simulationRec.getUnreadNotificationCount(idManager).subscribe(
       count => {
         this.unreadNotificationsCount = count;
-        this.cdr.detectChanges(); // Forcer la détection des changements
+       
       },
       error => {
         console.error('Error fetching unread notifications count:', error);
@@ -52,24 +71,11 @@ export class Toolbar1Component implements OnInit,OnDestroy {
   }
   refreshData(): void {
     console.log('refresh data');
-    this.loadNotifications();
+    this.loadStatusRecMessages();
     
   }
 
-  markAsRead(notification: Notification): void {
-    if (!notification.isRead) {
-      this.simulationRec.markNotificationAsRead(notification.id).subscribe(
-        () => {
-          this.cdr.detectChanges(); 
-          notification.isRead = true;
-          this.loadNotifications();
-          this.router.navigate(['/history']); 
-        },
-        error => console.error('Error marking notification as read', error)
-      );
-    }
-   
-  }
+ 
   
 
   
@@ -84,52 +90,88 @@ export class Toolbar1Component implements OnInit,OnDestroy {
     this.appService.makeReservation(ReservationDialogComponent, null, true);   
   }
 
-  loadNotifications(): void {
-    this.notificationService.getManagersByStatus().subscribe(
-      (data: any[]) => {
+  loadStatusRecMessages(): void {
+    this.notificationService.getStatusRecMessages().subscribe(
+      (data: string[]) => {
         this.notifications = data;
-        this.cdr.detectChanges(); // Forcer la détection des changements
+        this.unreadNotificationsCount = data.length;
+     //   this.router.navigate(['/history'])
       },
-      (error) => {
-        console.error('Erreur lors de la récupération des notifications:', error);
+      error => {
+        console.error('Error fetching statusRec messages', error);
       }
     );
   }
 
-  getPendingRequestsCount(): void {
-    this.notificationService.getPendingRequestsCount().subscribe(
-      (count: number) => {
-        this.pendingRequestsCount = count;
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération du nombre de demandes en cours:', error);
-      }
-    );
+  handleNotificationClick(notification: string, type: string): void {
+    if (type === 'statusRec') {
+      this.notificationService.clearMessageRec(notification).subscribe(
+        () => {
+          this.notifications = this.notifications.filter(msg => msg !== notification);
+          this.pendingRequestsCount = this.notifications.length;
+          this.router.navigate(['/history']);
+        },
+        error => {
+          console.error('Error clearing message', error);
+        }
+      );
+    } else if (type === 'statusRemm') {
+      this.notificationService.clearMessageRemm(notification).subscribe(
+        () => {
+          this.notificationsRemm = this.notificationsRemm.filter(msg => msg !== notification);
+          this.pendingRequestsCountRemm = this.notificationsRemm.length;
+          this.router.navigate(['/history-rem']);
+        },
+        error => {
+          console.error('Error clearing message', error);
+        }
+      );
+    }
   }
+
+
+  clearAllMessages(type: string): void {
+    if (type === 'statusRec') {
+      this.notificationService.clearAllMessagesRec().subscribe(
+        () => {
+          this.notifications = [];
+          this.pendingRequestsCount = 0;
+        },
+        error => {
+          console.error('Error clearing all messages', error);
+        }
+      );
+    } else if (type === 'statusRemm') {
+      this.notificationService.clearAllMessagesRemm().subscribe(
+        () => {
+          this.notificationsRemm = [];
+          this.pendingRequestsCountRemm = 0;
+        },
+        error => {
+          console.error('Error clearing all messages', error);
+        }
+      );
+    }
+  }
+
+
 
   navigateToRequests(): void {
     this.router.navigate(['/validate']);
   }
 
   logout(): void {
-    this.loginService.logout().subscribe(
-      response => {
-        console.log('Logout successful:', response);
-        // Gérer la redirection vers la page de connexion ou une autre page après la déconnexion
-        this.router.navigate(['/login']); // Redirection vers la page de login après la déconnexion
-      },
-      error => {
-        console.error('Logout error:', error);
-        // Gérer les erreurs de déconnexion ici
-      }
-    );
+    this.loginService.logout()
+    this.router.navigate(['/login']); 
+      
   }
 
   
   fetchUserRole(): void {
-    this.loginService.getUserRole().subscribe(
+    this.loginService.getRole().subscribe(
       (role: string) => {
         this.userRole = role; // Store the retrieved role in the component's variable
+        
         console.log('Rôle de l\'utilisateur:', this.userRole);
         // You can now use this.userRole in your Angular application
       },

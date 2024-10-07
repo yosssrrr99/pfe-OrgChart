@@ -26,6 +26,13 @@ private baseUrl='http://localhost:9090/employee'
     return this.http.put<any>(`${this.baseUrl}/statusR/${id}`, null);
   }
 
+  setStatusRem(id: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/statusRem/${id}`, null);
+  }
+  setStatusRefuserRem(id: string): Observable<any> {
+    return this.http.put<any>(`${this.baseUrl}/statusRRem/${id}`, null);
+  }
+
   
   getNotifications(managerId: string): Observable<Notification[]> {
     return this.http.get<Notification[]>(`${this.baseUrl}/manager/${managerId}`);

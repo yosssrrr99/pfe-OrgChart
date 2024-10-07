@@ -34,17 +34,20 @@
             </div>
             
             <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2"
-            [ngClass]="{'negative': gab1 < 0}">
-         <div fxLayout="column" fxLayoutAlign="center center">
-           <mat-icon color="primary" class="mat-icon-lg" [ngClass]="{'red-icon': gab1 < 0}">attach_money</mat-icon>
-           <h3 class="primary-color py-1" [ngClass]="{'red-text': gab1 < 0}">Budget Restant:</h3>
-           <span class="info-value" 
-      [ngClass]="{'red-text': gab1 < 0, 'blink': isBlinking && gab1 < 0}"
-      (click)="handleClick()">
-  {{ gab1 }}
+          [ngClass]="{'negative': gab1 < 0}">
+       <div fxLayout="column" fxLayoutAlign="center center">
+         <mat-icon color="primary" class="mat-icon-lg" [ngClass]="{'red-icon': gab1 < 0}">monetization_on</mat-icon>
+         <h3 class="primary-color py-1" [ngClass]="{'red-text': gab1 < 0}">Budget Restant:</h3>
+         <span class="info-value" 
+    [ngClass]="{'red-text': gab1 < 0, 'blink': isBlinking && gab1 < 0}"
+    (click)="handleClick()">
+{{ gab1 }}
 </span>
-         </div>
-       </div>
+              </div>
+              </div>
+
+        
+    
             <div fxFlex="48" class="info-box mt-2 percentage-spent">
               <div fxLayout="column" fxLayoutAlign="center center">
                 <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
@@ -95,18 +98,24 @@
               </div>
             </div>
             
-            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2">
-              <div fxLayout="column" fxLayoutAlign="center center">
-                <mat-icon color="primary" class="mat-icon-lg">savings</mat-icon>
-                <h3 class="primary-color py-1">Budget Restant :</h3>
-                <span class="info-value">{{gab2}}</span>
+            
+            <div fxFlex="100" fxFlex.gt-xs="30" class="info-box mt-2"
+          [ngClass]="{'negative': gab2 < 0}">
+       <div fxLayout="column" fxLayoutAlign="center center">
+         <mat-icon color="primary" class="mat-icon-lg" [ngClass]="{'red-icon': gab2 < 0}">monetization_on</mat-icon>
+         <h3 class="primary-color py-1" [ngClass]="{'red-text': gab2 < 0}">Budget Restant:</h3>
+         <span class="info-value" 
+    [ngClass]="{'red-text': gab2 < 0, 'blink': isBlinking && gab2 < 0}"
+    (click)="handleClick()">
+{{ gab2 }}
+</span>
               </div>
               </div>
             <div fxFlex="48" class="info-box mt-2 percentage-spent">
               <div fxLayout="column" fxLayoutAlign="center center">
                 <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
                 <h3 class="primary-color py-1">Pourcentage Dépensé :</h3>
-                <span class="info-value">{{percentageChangeTab2}}%</span></div></div>
+                <span class="info-value">{{percentageChangeTab2| number:'1.0-2' }}%</span></div></div>
                 <div fxFlex="48" class="info-box mt-2 percentage-remaining">
                   <div fxLayout="column" fxLayoutAlign="center center">
                     <mat-icon color="primary" class="mat-icon-lg">percent</mat-icon>
@@ -172,8 +181,8 @@
               <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px; margin-left: 1px;">
                 <mat-label>Select Emploi</mat-label>
                 <mat-select [(ngModel)]="employee.selectedPoste">
-                  <mat-option *ngFor="let poste of postes" [value]="poste.idjbo00" required>
-                    {{ poste.emploi }}
+                  <mat-option *ngFor="let poste of postes" [value]="poste" required>
+                    {{ poste }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -239,9 +248,9 @@
               
               <mat-form-field appearance="outline" style="margin-top: 5px; width: 200px; margin-left: 1px;">
                 <mat-label>Select Emploi</mat-label>
-                <mat-select [(ngModel)]="employee.selectedPoste" required>
-                  <mat-option *ngFor="let poste of postes" [value]="poste.idjbo00">
-                    {{ poste.emploi }}
+                <mat-select [(ngModel)]="employee.selectedPoste">
+                  <mat-option *ngFor="let poste of postes" [value]="poste" required>
+                    {{ poste }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

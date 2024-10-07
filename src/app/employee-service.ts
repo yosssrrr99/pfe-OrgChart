@@ -16,9 +16,13 @@ export class EmployeeService {
       catchError(this.handleError<any>('getEmployeesByDepartment'))
     );
   }
-  saveEmployeeRem(data: any, budgetGlobal: number, gab: number, idorg: string): Observable<any> {
-    return this.http.post(`${this.api}/save/${budgetGlobal}/${gab}/${idorg}`, data);
+  saveEmployeeRem(data: any, budgetGlobal: number, gab: number, idorg: string): Observable<string> {
+    return this.http.post<string>(`${this.api}/saves/${budgetGlobal}/${gab}/${idorg}`, data)
+    .pipe(
+      catchError(this.handleError<string>('saveEmployeesAndBudget'))
+    );
   }
+ 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
@@ -26,7 +30,17 @@ export class EmployeeService {
     };
   }
 
+  getRemunerationRequestById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.api}/departmentRem/${id}`);
+  }
 
+  updateRemunerationRequest(id: string, data: any): Observable<any> {
+    return this.http.put<any>(`${this.api}/putRem/${id}`, data);
+  }
+
+  deleteEmployee(id: string): Observable<any> {
+    return this.http.delete<any>(`${this.api}/suppRem/${id}`);
+  }
 
   calculateBudget(employee: Employee, currentDate: string): Observable<number> {
     return this.http.post<number>(`${this.apiUrl}/budget`, { employee, date: currentDate });
@@ -57,11 +71,11 @@ export class EmployeeService {
   }
  
   loadAndDisplayLastOccurrence(EmployeeZy3b: any, idorg: string, numdoss: number): Observable<string> {
-    const url = `${this.api}/occur/${idorg}/${numdoss}`;
-    return this.http.post<string>(url, EmployeeZy3b);
+    const url = `${this.api}/updateuo/${idorg}/${numdoss}`;
+    return this.http.put<any>(url, EmployeeZy3b);
   }
-  poste(): Observable<Poste[]> {
-    return this.http.get<Poste[]>(`${this.api}/emploi`);
+  poste(): Observable<String[]> {
+    return this.http.get<String[]>(`${this.api}/emploi`);
   }
 
   motif(): Observable<String[]> {
@@ -88,9 +102,6 @@ export interface Employee {
    // disableDateField?: boolean; 
 }
 export interface EmployeeZy3b {
-  
-  selectedDate:Date;
-  nbHeure:number;
   motif:String; 
 }
 export interface EmployeeAndTotalSalaryResponse {
@@ -101,3 +112,19 @@ export interface Poste {
   idjbo00: string;
   emploi: string;
 }
+
+export interface EmployeeRem {
+  id:number;
+  nom:string;
+  mtsal:number;
+  idorg:any;
+  budgetGloabl:any;
+  gab:any;
+  
+}
+
+  export interface UpdateRecRequest {
+    employees: EmployeeRem[];
+    budgetGlobal: number;
+    gab: number;
+  }

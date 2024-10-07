@@ -28,136 +28,94 @@
   height: 1.2rem;
 }
 
-.input-group input {
-  width: 100%;
-  padding: 0 .5rem 0 .3rem;
-  background-color: transparent;
-  outline: none;
-}
-
-.custom-div {
-  width: 130px;
-  height: 50px;
-  border-radius: 10px;
-  position: relative; 
-  top: -10px;
-}
-
-.custom-div .font-bold {
-  font-size: 12px;
-}
-
-.bold-title {
-  font-weight: bold;
-  font-size: 10px;
-}
-
-.custom-div .data-container {
-  font-size: 12px;
-}
-
-.flex {
+/* Conteneur principal avec Flexbox */
+.container {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  height: 100vh; /* Hauteur totale de la vue */
+  padding: 1rem; /* Ajouter du padding pour l'espacement */
+  overflow: auto; /* Permet le défilement si nécessaire */
+  border-radius: 1rem;
   
 }
 
+/* Styles pour le graphique */
+.p-organizationChart {
+  width: 100%;
+  max-height: 80vh; /* Limite la hauteur du graphique pour s'adapter à l'écran */
+  overflow: auto; /* Permet le défilement si le contenu dépasse */
+}
+
+
+/* Styles pour le contenu du noeud */
+.custom-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Image dans le noeud */
 .custom-image {
   width: 40px;
   height: auto;
   margin-right: 6px;
 }
 
+/* Conteneur des données dans le noeud */
 .data-container {
   flex-grow: 1;
-
 }
 
-:host ::ng-deep .myClass {
-  border-color: #9AC8CD;
-  border-radius: 20px 0 20px 0;
-  padding: 10px;
-  box-shadow: 0 0 10px rgba(58, 54, 58, 0.2);
+/* Style pour le texte dans le noeud */
+.font-bold {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2F58CD;
+}
+
+.bold-title {
+  font-size: 10px;
+  color: #8696FE;
+}
+
+/* Style pour les connecteurs de l'organigramme */
+.p-organizationChart .p-overlay-connector {
+  stroke: black;
+  stroke-width: 2px;
+}
+
+
+.organization-chart {
+  position: relative;
+}
+
+.custom-node {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.custom-node img {
+  margin-right: 5px;
 }
 
 .overlay {
   position: absolute;
-  z-index: 2;
-  font-weight: bold;
-}
-
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Montserrat, sans-serif;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: 100vh;
-  margin: 0;
-}
-
-h3 {
-  margin: 10px 0;
-  color: #486989;
-}
-
-h6 {
-  margin: 5px 0;
-  text-transform: uppercase;
-  color: #8696FE;
-}
-
-p.font-bold {
-  font-size: 4px;
-  line-height: 21px;
-  color: #0A1931;
-}
-
-.card-container {
   background-color: white;
-  border-radius: 5px;
-  box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
-  padding-top: 20px;
-  position: relative;
-  width: 250px;
-  max-width: 100%;
-  text-align: center;
-}
-
-.cordonnees {
-  background-color: #EEEEEE;
-  color: #495c83;
-  text-align: left;
+  border: 1px solid #ccc;
   padding: 10px;
-  margin-top: 30px;
-  font-size: 16px;
-  line-height: 21px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
-.card-container .round {
-  border: 1px solid #76ABAE;
-  border-radius: 50%;
-  padding: 7px;
-  width: 80px;
-  height: 80px;
-  margin-left: 8px;
+.overlay p {
+  margin: 0;
+  padding: 5px 0;
 }
 
 
-.cordonnees .list-item {
-  font-size: 12px;
+/* Exemple de media query pour les écrans plus petits */
+@media (max-width: 768px) {
+  .p-organizationChart {
+    max-height: 60vh; /* Réduit la hauteur du graphique pour les petits écrans */
+  }
 }
-
-.p-organizationChart .p-overlay-connector { /* Adjust the class name based on library documentation */
-  stroke: black; /* Set the line color to black */
-  stroke-width: 2px; /* Increase the line thickness */
-  border: 20px solid black;
-}
-
-
-

@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
         }
         
         const expectedRoles = route.data['expectedRoles'] as string[];
-        return this.loginService.userHasRole(expectedRoles).pipe(
+        return this.loginService.getHasRole(expectedRoles).pipe(
           map(hasRole => {
             if (!hasRole) {
               console.log('User does not have required roles:', expectedRoles);
