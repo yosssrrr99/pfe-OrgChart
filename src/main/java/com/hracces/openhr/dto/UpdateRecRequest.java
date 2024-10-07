@@ -6,8 +6,8 @@ import java.util.List;
 
 public class UpdateRecRequest {
     private List<EmployeeRec> employees;
-    private double minBudget;
-    private double maxBudget;
+    private double budgetGlobal;
+    private double gab;
 
     // Getters and setters
     public List<EmployeeRec> getEmployees() {
@@ -18,19 +18,24 @@ public class UpdateRecRequest {
         this.employees = employees;
     }
 
-    public double getMinBudget() {
-        return minBudget;
+    public double getBudgetGlobal() {
+        return budgetGlobal;
     }
 
-    public void setMinBudget(double minBudget) {
-        this.minBudget = minBudget;
+    public void setMinBudget(double budgetGlobal) {
+        this.budgetGlobal = budgetGlobal;
     }
 
-    public double getMaxBudget() {
-        return maxBudget;
+    public double getGab() {
+        return gab;
     }
 
-    public void setMaxBudget(double maxBudget) {
-        this.maxBudget = maxBudget;
+    public void setBudgetGlobal(double budgetGlobal) {
+        this.budgetGlobal = budgetGlobal;
     }
+
+    public void setGab(double gab) {
+        this.gab = gab;
+    }
+
 }

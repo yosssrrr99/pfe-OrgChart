@@ -25,20 +25,16 @@ public class LoginService {
     @Autowired
     private EmployeeRecRepositories employeeRecRepositories;
 
-    private final HRSessionFactory hrSessionFactory;
+
     private final String username = "TALAN2PR";
     private final String password = "HRA2023!";
-    private IHRSession session;
-    private IHRUser user;
-
-    @Autowired
-    public LoginService(HRSessionFactory hrSessionFactory) {
-        this.hrSessionFactory = hrSessionFactory;
-    }
 
 
 
-    public HRResultExtractData login() throws HRException, ConfigurationException {
+
+
+
+  /*  public HRResultExtractData login() throws HRException, ConfigurationException {
 
         HRApplication.configureLogs("G:\\pfe\\hos\\OpenHR\\src\\main\\java\\com\\hracces\\openhr\\conf\\log4j.properties");
         session = HRSessionFactory.getFactory().createSession(
@@ -72,6 +68,6 @@ public class LoginService {
 
         return result;
 
-    }
+    }*/
 
 }

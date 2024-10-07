@@ -19,6 +19,8 @@ public interface EmployeeRecRepositories extends JpaRepository<EmployeeRec,Integ
     @Query("SELECT e FROM EmployeeRec e WHERE e.idManger = :idManager AND e.TypeStatus = :status")
     List<EmployeeRec> findByIdManagerAndStatus(@Param("idManager") String idManager, @Param("status") Status status);
     List<EmployeeRec>  findAllByIdManger(String id);
+    @Query("SELECT e FROM EmployeeRec e WHERE e.idManger = :idManager  AND e.date = (SELECT MAX(e2.date) FROM EmployeeRec e2 WHERE e2.idManger = :idManager)")
+    List<EmployeeRec> findByIdManagerAndStatusWithLatestDate(@Param("idManager") String idManager);
 
     @Query("SELECT distinct e.idManger FROM EmployeeRec e WHERE e.TypeStatus = :status")
     List<String> findMangerTypeStatus( @Param("status") Status status);

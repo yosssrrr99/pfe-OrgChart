@@ -28,6 +28,8 @@ public class EmployeeRec implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status TypeStatus;
     private String idManger;
+    private double budgetGlobal;
+    private double gab;
 
 
 }

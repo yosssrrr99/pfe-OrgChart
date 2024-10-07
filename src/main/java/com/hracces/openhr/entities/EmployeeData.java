@@ -44,10 +44,12 @@ public class EmployeeData implements Serializable {
     private double nbHeure;
     private String Motif;
 
+    public EmployeeData() {
+    }
 
-
-
-
-
-
+    public EmployeeData(String nomuse, String prenom, String poste) {
+        this.nomuse = nomuse;
+        this.prenom = prenom;
+        this.poste = poste;
+    }
 }
